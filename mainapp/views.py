@@ -7,6 +7,3 @@ def main(request):
     return render(request, 'mainapp/index.html', context=content)
 
 
-def mainl(request):
-    return render(request, 'mainapp/hello.html')
-

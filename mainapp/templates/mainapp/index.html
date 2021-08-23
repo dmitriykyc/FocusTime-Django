@@ -2,12 +2,26 @@
 {% load static %}
 
 {% block content %}
-
-    <div class="card">
-        <div class="card-body">
-            This is some text within a card body.
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="card w-100">
+                            <div class="card-body align-baseline">
+                                <h5 class="card-title">Меняй свою жизнь вместе с нам2и!</h5>
+                                <p class="card-text">Держись в фокусе и живи своеё жизнью!</p>
+                                <a href="#" class="btn btn-primary">Button</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img src="{% static 'img/cubs.jpg' %}" class="img-fluid" alt="...">
+                    </div>
+                </div>
+                А тут ниже всякая инфа дальше пойдёт.
+            </div>
         </div>
     </div>
-
 
 {% endblock %}
