@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block content %}
-
-    {% csrf_token %}
-    {{ form.as_p }}
-    <br>
-    <input class="btn btn-primary" type="submit" value="Войти">
-
+    {{ request }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <input class="btn btn-primary" type="submit" value="Войти" name="login">
+    </form>
 {% endblock %}

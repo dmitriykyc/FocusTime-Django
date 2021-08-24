@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.main, name='index'),
     path('registration/', authapp.register, name='register'),
-    path('login/', authapp.login, name='register'),
+    path('login/', authapp.login, name='login'),
+    path('logout/', authapp.logout, name='logout'),
 ]
