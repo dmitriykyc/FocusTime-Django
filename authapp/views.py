@@ -1,12 +1,23 @@
 from django.shortcuts import render
-from authapp.forms import UserLoginForm
+from authapp.forms import UserLoginForm, UserRegistrationForm
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 
 
 def register(request):
     page_title = 'Регистрация'
-    content = {'page_title': page_title}
+    form = UserRegistrationForm()
+
+    if request.POST.get('registration'):
+        form = UserRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return render(request, 'mainapp/index.html')
+
+    content = {
+        'form': form,
+        'page_title': page_title
+    }
 
     return render(request, 'authapp/registration.html', context=content)
 
@@ -32,6 +43,5 @@ def login(request):
 
 
 def logout(request):
-    print(1)
     auth.logout(request)
     return render(request, 'mainapp/index.html')

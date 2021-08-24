@@ -2,11 +2,22 @@
 {% load static %}
 
 {% block content %}
-    {{ request }}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <br>
-        <input class="btn btn-primary" type="submit" value="Войти" name="login">
-    </form>
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <nav class="col-sm-8">
+            <form class="form-horizontal" method="post">
+                <div class="row-cols-sm-3">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Войти" name="login">
+                    <a href="{% url 'authapp:registration' %}" class="btn btn-primary"> Регистрация</a>
+                </div>
+            </form>
+        </nav>
+
+        <div class="col-sm-2"></div>
+    </div>
+
 {% endblock %}

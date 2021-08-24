@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path
 import mainapp.views as mainapp
 import authapp.views as authapp
+from django.conf.urls import include
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.main, name='index'),
-    path('registration/', authapp.register, name='register'),
-    path('login/', authapp.login, name='login'),
-    path('logout/', authapp.logout, name='logout'),
+    path('auth/', include("authapp.urls", namespace='auth')),
+
 ]
