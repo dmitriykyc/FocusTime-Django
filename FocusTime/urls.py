@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import mainapp.views as mainapp
-import authapp.views as authapp
 from django.conf.urls import include
 
 
@@ -24,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.main, name='index'),
     path('auth/', include("authapp.urls", namespace='auth')),
-
+    path('tasks/', include("tasksapp.urls", namespace='tasks')),
 ]
