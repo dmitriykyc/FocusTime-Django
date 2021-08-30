@@ -5,6 +5,15 @@
     {{ content_task.content|safe }}
 
 
+    <form method="post">
+        <br>
+        <br>
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">
+    </form>
+
+
 
 
 

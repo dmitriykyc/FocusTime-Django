@@ -10,3 +10,4 @@ class TimeFocusUsers(AbstractUser):
     user_info = models.TextField('Описание человека от его лица\статус', blank=True)
     instagram = models.URLField('Ccылка на инсту', blank=True)
     city = models.TextField('Город')
+
