@@ -1,5 +1,6 @@
 from django.db import models
 from tinymce.models import HTMLField
+from authapp.models import TimeFocusUsers
 # Create your models here.
 
 class TasksModel(models.Model):
@@ -20,7 +21,9 @@ class NoteAnswer(models.Model):
 
 class UserAnswerTasks(models.Model):
     task_id = models.ForeignKey(TasksModel, verbose_name='id задания', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(TimeFocusUsers, verbose_name='id пользователя', on_delete=models.CASCADE)
     answer = models.TextField('Ответ на задание')
     media = models.ImageField('Фото к заданию', blank=True)
     date_create = models.DateField('Дата создания', auto_now_add=True)
     date_update = models.DateField('Дата изменения', auto_now=True)
+

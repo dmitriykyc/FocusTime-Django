@@ -6,3 +6,15 @@ from tasksapp.models import UserAnswerTasks
 class UserAnswerForm(forms.Form):
     answer = forms.CharField(widget=forms.Textarea(attrs={"class":"form-control"}), label=False)
 
+
+
+class UserEditForm(forms.ModelForm):
+
+    class Meta:
+        model = UserAnswerTasks
+        fields = ['answer']
+
+
+
+
+

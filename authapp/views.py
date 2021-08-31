@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from authapp.forms import UserLoginForm, UserRegistrationForm
 from django.contrib import auth
 from django.http import HttpResponseRedirect
@@ -32,7 +32,7 @@ def login(request):
         if user and user.is_active:
             auth.login(request, user)
             print(1)
-            return render(request, 'mainapp/index.html')
+            return redirect('index')
 
     content = {
         'form': form,
@@ -44,4 +44,4 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return render(request, 'mainapp/index.html')
+    return redirect('index')

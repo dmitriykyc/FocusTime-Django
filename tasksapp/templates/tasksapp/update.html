@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    {{ request.user.id }}
+    {{ content_task.content|safe }}
+
+
+{#    {% if type_form == 1 %}#}
+{#        <br>#}
+{#        <br>#}
+{#        {{ form.answer }}#}
+{#        <input type="submit" class="btn btn-primary" value="Изменить" name="answer_edit">#}
+{#    {% endif %}#}
+
+
+
+    <form method="post">
+        <br>
+        <br>
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <input type="submit" class="btn btn-primary" value="Сохранить изменения" name="answer_edit">
+
+    </form>
+
+
+
+
+
+{% endblock %}
