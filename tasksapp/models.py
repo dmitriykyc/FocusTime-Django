@@ -27,3 +27,6 @@ class UserAnswerTasks(models.Model):
     date_create = models.DateField('Дата создания', auto_now_add=True)
     date_update = models.DateField('Дата изменения', auto_now=True)
 
+    def __str__(self):
+        return f'task_id ({self.task_id}), user_id ({self.user_id})'
+

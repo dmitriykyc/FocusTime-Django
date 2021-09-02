@@ -4,6 +4,7 @@ import tasksapp.views as tasksapp
 app_name = 'tasksapp'
 
 urlpatterns = [
-    path('<int:pk>/', tasksapp.index, name='index_tasks'),
+    path('', tasksapp.index, name='tasks_index'),
+    path('<int:pk>/', tasksapp.task, name='task'),
     path('edit/<int:pk>/', tasksapp.edit_answer, name='edit_answer'),
 ]

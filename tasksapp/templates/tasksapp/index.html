@@ -1,42 +1,24 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
+
 {% block content %}
-    {{ request.user.id }}
-    {{ content_task.content|safe }}
+    {{ last_task.task_id.id }}
 
+    {% for i in tasks %}
 
-    {% if type_form == 1 %}
-        <br>
-        <br>
-        {{ form.answer }}
-        <a href="{% url 'tasksapp:edit_answer' pk %}" class="btn btn-primary"> Изменить</a>
-    {% else %}
-        <br>
-        <br>
-         <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <br>
+        {% if i.id <= last_task.task_id.id|add:'1' or i.id == 1 %}
+            <div><br><br></div>
+            <a href="{% url 'tasks:task' i.pk %}" class="btn btn-primary btn-lg">{{ i.description }}</a>
 
-        <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">
-        </form>
-    {% endif %}
+            {#            <button type="button" class="btn btn-primary btn-lg">{{ i.description }}</button>#}
+        {% else %}
+            <div><br><br></div>
+            <a href="#" class="btn btn-secondary btn-lg" disabled="">{{ i.description }}</a>
+            {#             <button type="button" class="btn btn-primary btn-lg" disabled>{{ i.description }}</button>#}
+        {% endif %}
 
-
-
-{#    <form method="post">#}
-{#        <br>#}
-{#        <br>#}
-{#        {% csrf_token %}#}
-{#        {{ form }}#}
-{#        <br>#}
-{#        <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">#}
-{##}
-{#    </form>#}
-
-
-
+    {% endfor %}
 
 
 {% endblock %}
