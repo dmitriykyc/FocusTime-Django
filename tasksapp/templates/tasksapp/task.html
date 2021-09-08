@@ -11,9 +11,11 @@
         <div class="card text-center">
             <div class="card-header">
                 <h3>Ваш ответ:</h3>
+
             </div>
             <div class="card-body">
                 <p class="card-text">{{ form.answer|linebreaks }}</p>
+                <img src="{{ form.media.url }}" alt="">
             </div>
             <div class="card-footer text-muted">
                Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
@@ -24,9 +26,9 @@
     {% else %}
         <br>
         <br>
-        <form method="post">
+        <form class="form-horizontal" method="post"  enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form }}
+            {{ form.as_p }}
             <br>
 
             <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">

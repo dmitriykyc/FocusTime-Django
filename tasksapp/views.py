@@ -14,15 +14,14 @@ def index(request):
         last_task = None
     tasks = TasksModel.objects.filter(is_activ=1)
 
-
     content = {
         "page_title": page_title,
         "last_task": last_task,
         "tasks": tasks
     }
 
+    return render(request, 'tasksapp/index.html', content)
 
-    return  render(request, 'tasksapp/index.html', content)
 
 # Попасть сюда можно впринципе только зареганным пользователям, user_id просто там ниже обязательно у меня стоит
 def task(request, pk=None):
@@ -31,12 +30,11 @@ def task(request, pk=None):
 
     user = TimeFocusUsers.objects.get(id=request.user.id)
 
-
     # print(UserAnswerTasks.objects.filter(user_id=request.user.id))
 
-    if UserAnswerTasks.objects.filter(user_id=request.user.id, task_id=pk):
+    if UserAnswerTasks.objects.filter(user_id=request.user.id, task_id=pk):  # Если у БД уже есть ответ на это задание
         type_form = 1  # Сделаем так для того чтобы определить что сейчас выводить
-        answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id, task_id=pk)
+        answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id, task_id=pk)  #Возвращаем этот ответ в форму
         form = answer_if_exist
 
     else:
@@ -46,16 +44,9 @@ def task(request, pk=None):
     if request.POST.get('answer_sent') and pk:
         answer_text = request.POST.get('answer')
         task_id = TasksModel.objects.get(id=pk)
-        answer = UserAnswerTasks.objects.create(task_id=task_id, user_id=user, answer=answer_text)
+        answer = UserAnswerTasks.objects.create(task_id=task_id, user_id=user, answer=answer_text, media=request.FILES['media'])
         answer.save()
         return redirect('tasksapp:task', pk=pk)
-
-        #Ту ту нас создаётся постоянно новый объект, нужно сделать так:
-        # Когда задание уже пройдено, нет формы для ответа, есть только кнопка изменить. И там меняем просто:
-        # aaa = UserAnswerTasks.objects.get(id)
-        # aaa.answer = 'NEW TEXT'
-        # aaa.save()
-
 
     content = {
         "page_title": page_title,
@@ -73,8 +64,6 @@ def edit_answer(request, pk=None):
     content_task = TasksModel.objects.get(id=1)
     user = TimeFocusUsers.objects.get(id=request.user.id)
     answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id, task_id=pk)
-
-
 
     if request.method == 'POST':
         form = UserEditForm(request.POST, instance=answer_if_exist)
