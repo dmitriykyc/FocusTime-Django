@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+    {{ content_task.content|safe }}
+
     {% if type_form == 1 %}
         <br>
         <br>
@@ -14,7 +16,7 @@
                 <p class="card-text">{{ form.answer|linebreaks }}</p>
             </div>
             <div class="card-footer text-muted">
-                Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
+               Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
             </div>
         </div>
         <div><br><br></div>
