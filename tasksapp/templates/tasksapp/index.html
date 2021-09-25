@@ -8,12 +8,11 @@
 
         {% if i.id <= last_task.task_id.id|add:'1' or i.id == 1 %}
             <div><br><br></div>
-            <a href="{% url 'tasks:task' i.pk %}" class="btn btn-primary btn-lg">{{ i.description }}</a>
+            <a href="{% url 'tasks:task' i.pk %}" class="btn btn-primary btn-lg">{{ i.title }}</a>
 
-            {#            <button type="button" class="btn btn-primary btn-lg">{{ i.description }}</button>#}
         {% else %}
             <div><br><br></div>
-            <a href="#" class="btn btn-secondary btn-lg" disabled="">{{ i.description }}</a>
+            <a href="#" class="btn btn-secondary btn-lg" disabled="">{{ i.title }}</a>
             {#             <button type="button" class="btn btn-primary btn-lg" disabled>{{ i.description }}</button>#}
         {% endif %}
 

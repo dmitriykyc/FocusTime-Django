@@ -7,7 +7,6 @@
     {% if type_form == 1 %}
         <br>
         <br>
-
         <div class="card text-center">
             <div class="card-header">
                 <h3>Ваш ответ:</h3>
@@ -15,10 +14,13 @@
             </div>
             <div class="card-body">
                 <p class="card-text">{{ form.answer|linebreaks }}</p>
-                <img src="{{ form.media.url }}" alt="">
+
+                {% if form.media %}
+                    <img src="{{ form.media.url }}" alt="" width="500">
+                {% endif %}
             </div>
             <div class="card-footer text-muted">
-               Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
+                Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
             </div>
         </div>
         <div><br><br></div>
@@ -26,7 +28,7 @@
     {% else %}
         <br>
         <br>
-        <form class="form-horizontal" method="post"  enctype="multipart/form-data">
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <br>
@@ -34,18 +36,6 @@
             <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">
         </form>
     {% endif %}
-
-
-
-    {#    <form method="post">#}
-    {#        <br>#}
-    {#        <br>#}
-    {#        {% csrf_token %}#}
-    {#        {{ form }}#}
-    {#        <br>#}
-    {#        <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">#}
-    {##}
-    {#    </form>#}
 
 
 

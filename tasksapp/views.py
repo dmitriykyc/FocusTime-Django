@@ -30,8 +30,6 @@ def task(request, pk=None):
 
     user = TimeFocusUsers.objects.get(id=request.user.id)
 
-    # print(UserAnswerTasks.objects.filter(user_id=request.user.id))
-
     if UserAnswerTasks.objects.filter(user_id=request.user.id, task_id=pk):  # Если у БД уже есть ответ на это задание
         type_form = 1  # Сделаем так для того чтобы определить что сейчас выводить
         answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id, task_id=pk)  #Возвращаем этот ответ в форму
@@ -44,7 +42,10 @@ def task(request, pk=None):
     if request.POST.get('answer_sent') and pk:
         answer_text = request.POST.get('answer')
         task_id = TasksModel.objects.get(id=pk)
-        answer = UserAnswerTasks.objects.create(task_id=task_id, user_id=user, answer=answer_text, media=request.FILES['media'])
+        if 'media' in request.FILES:
+            answer = UserAnswerTasks.objects.create(task_id=task_id, user_id=user, answer=answer_text, media=request.FILES['media'])
+        else:
+            answer = UserAnswerTasks.objects.create(task_id=task_id, user_id=user, answer=answer_text)
         answer.save()
         return redirect('tasksapp:task', pk=pk)
 
@@ -66,10 +67,11 @@ def edit_answer(request, pk=None):
     answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id, task_id=pk)
 
     if request.method == 'POST':
-        form = UserEditForm(request.POST, instance=answer_if_exist)
+        form = UserEditForm(request.POST, request.FILES, instance=answer_if_exist)
         if form.is_valid():
             answer_if_exist.answer = request.POST['answer']
             answer_if_exist.user_id = user
+            answer_if_exist.media = request.FILES['media']
             answer_if_exist.save()
             return redirect('tasksapp:task', pk)
 

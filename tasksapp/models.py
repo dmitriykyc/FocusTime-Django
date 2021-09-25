@@ -24,7 +24,7 @@ class UserAnswerTasks(models.Model):
     user_id = models.ForeignKey(TimeFocusUsers, verbose_name='id пользователя', on_delete=models.CASCADE)
     is_public = models.BooleanField('Сделать публичным?', default=True)
     answer = models.TextField('Ответ на задание')
-    media = models.ImageField('Фото к заданию', blank=True, upload_to='answer/')
+    media = models.ImageField('Фото к заданию', blank=True, null=True, upload_to='answer/')
     date_create = models.DateField('Дата создания', auto_now_add=True)
     date_update = models.DateField('Дата изменения', auto_now=True)
 
