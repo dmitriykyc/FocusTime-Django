@@ -1,23 +1,38 @@
-{% extends 'mainapp/base.html' %}
+{% extends 'authapp/base.html' %}
 {% load static %}
 
 {% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-5 col-xl-4 my-5">
 
-    <div class="row">
-        <div class="col-sm-2"></div>
-        <nav class="col-sm-8">
-            <form class="form-horizontal" method="post">
-                <div class="row-cols-sm-3">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <br>
-                    <input class="btn btn-primary" type="submit" value="Войти" name="login">
-                    <a href="{% url 'authapp:registration' %}" class="btn btn-primary"> Регистрация</a>
+            <!-- Heading -->
+            <h1 class="display-4 text-center mb-3">
+                Вход в систему
+            </h1>
+
+            <!-- Subheading -->
+            <p class="text-muted text-center mb-5">
+                Какая то тут надпись
+            </p>
+
+            <!-- Form -->
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <input class="btn btn-lg w-100 btn-primary mb-3" type="submit" value="Войти" name="login">
+                <div class="text-center">
+                    <small class="text-muted text-center">
+                        Вы не зарегистрированы? <a href="{% url 'authapp:registration' %}">Регистрация</a>.
+                    </small>
                 </div>
+
+                {#                <a href="{% url 'authapp:registration' %}" class="btn btn-lg w-100 btn-primary mb-3"> Регистрация</a>#}
+
             </form>
-        </nav>
 
-        <div class="col-sm-2"></div>
-    </div>
-
-{% endblock %}
+        </div>
+    </div> <!-- / .row -->
+</div> <!-- / .container -->
+{% endblock content %}
