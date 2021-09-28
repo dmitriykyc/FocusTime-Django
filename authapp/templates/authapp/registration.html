@@ -2,31 +2,37 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-5 col-xl-4 my-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-5 col-xl-4 my-5">
 
-            <!-- Heading -->
-            <h1 class="display-4 text-center mb-3">
-                Регистрация
-            </h1>
+                <!-- Logo -->
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'img/icon.png' %}" class="rounded mx-auto d-block" alt="" height="90">
+                </a><br>
 
-            <!-- Subheading -->
-            <p class="text-muted text-center mb-5">
-                Заполните все поля чтобы зарегистрироваться
-            </p>
+                <!-- Heading -->
+                <h1 class="display-4 text-center mb-3">
+                    Регистрация
+                </h1>
 
-            <!-- Form -->
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br>
-                <input class="btn btn-lg w-100 btn-primary mb-3" type="submit" value="Зарегистрироваться" name="registration">
+                <!-- Subheading -->
+                <p class="text-muted text-center mb-5">
+                    Заполните все поля чтобы зарегистрироваться
+                </p>
 
-            </form>
+                <!-- Form -->
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br>
+                    <input class="btn btn-lg w-100 btn-primary mb-3" type="submit" value="Зарегистрироваться"
+                           name="registration">
 
-        </div>
-    </div> <!-- / .row -->
-</div> <!-- / .container -->
+                </form>
+
+            </div>
+        </div> <!-- / .row -->
+    </div> <!-- / .container -->
 
 {% endblock %}
