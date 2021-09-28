@@ -2,43 +2,313 @@
 {% load static %}
 
 {% block content %}
-    {{ content_task.content|safe }}
+    <div class="card-body">
 
-    {% if type_form == 1 %}
-        <br>
-        <br>
-        <div class="card text-center">
-            <div class="card-header">
-                <h3>Ваш ответ:</h3>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-xl-1"></div>
+                <div class="col-12 col-xl-8">
 
-            </div>
-            <div class="card-body">
-                <p class="card-text">{{ form.answer|linebreaks }}</p>
 
-                {% if form.media %}
-                    <img src="{{ form.media.url }}" alt="" width="500">
-                {% endif %}
-            </div>
-            <div class="card-footer text-muted">
-                Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
-            </div>
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+
+                            <!-- Header -->
+                            <div class="mb-3">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+
+                                        <img src="{% static 'img/icon.png' %}" alt="..."
+                                             class="avatar">
+
+
+                                    </div>
+                                    <div class="col ms-n2">
+
+                                        <!-- Title -->
+                                        <h1 class="mb-1">
+                                            Первое классное задание
+                                        </h1>
+
+                                        <!-- Time -->
+                                        <p class="card-text small text-muted">
+                                            <span class="fe fe-clock"></span>
+                                            <time datetime="2018-05-24">Вы приступили к заданию в 21:17</time>
+                                        </p>
+
+                                    </div>
+                                    <div class="col-auto">
+
+
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+
+                            <!-- Текст -->
+                            <hr>
+                            {{ content_task.content|safe }}
+                            <hr>
+
+                            <!-- Ответ -->
+                            {% if type_form == 1 %}
+                                <br>
+                                <div class="card text-center">
+                                    <div class="card-header">
+                                        <h3>Ваш ответ:</h3>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{ form.answer|linebreaks }}</p>
+
+                                        {% if form.media %}
+                                            <img src="{{ form.media.url }}" alt="" width="500">
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
+                                    </div>
+                                </div>
+                                <div><br><br></div>
+                                <a href="{% url 'tasksapp:edit_answer' pk %}" class="btn btn-primary"> Изменить</a>
+                            {% else %}
+                                <br>
+                                <br>
+                                <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <br>
+
+                                    <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">
+                                </form>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-12 col-xl-2">
+
+                    <!-- Прогресс -->
+                    <div class="card">
+                        <div class="card-header">
+
+                            <!-- Заголово -->
+                            <h4 class="card-header-title" align="center">
+                                Ваш прогресс
+                            </h4>
+
+{#                            <!-- Link -->#}
+{#                            <a href="project-overview.html" class="small">вернуться<br>к заданиям</a>#}
+
+                        </div>
+                        <div class="card-body">
+
+                            <!-- List group -->
+                            <div class="list-group list-group-flush my-n3">
+                                <div class="list-group-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+
+                                            <!-- Avatar -->
+                                            <a href="project-overview.html" class="avatar avatar-4by3">
+                                                <img src="assets/img/avatars/projects/project-1.jpg" alt="..."
+                                                     class="avatar-img rounded">
+                                            </a>
+
+                                        </div>
+                                        <div class="col ms-n2">
+
+                                            <!-- Title -->
+                                            <h4 class="mb-1">
+                                                <a href="project-overview.html">Homepage Redesign</a>
+                                            </h4>
+
+                                            <!-- Time -->
+                                            <p class="card-text small text-muted">
+                                                <time datetime="2018-05-24">Updated 4hr ago</time>
+                                            </p>
+
+                                        </div>
+                                        <div class="col-auto">
+
+                                            <!-- Dropdown -->
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> <!-- / .row -->
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+
+                                            <!-- Avatar -->
+                                            <a href="project-overview.html" class="avatar avatar-4by3">
+                                                <img src="assets/img/avatars/projects/project-2.jpg" alt="..."
+                                                     class="avatar-img rounded">
+                                            </a>
+
+                                        </div>
+                                        <div class="col ms-n2">
+
+                                            <!-- Title -->
+                                            <h4 class="mb-1">
+                                                <a href="project-overview.html">Travels & Time</a>
+                                            </h4>
+
+                                            <!-- Time -->
+                                            <p class="card-text small text-muted">
+                                                <time datetime="2018-05-24">Updated 4hr ago</time>
+                                            </p>
+
+                                        </div>
+                                        <div class="col-auto">
+
+                                            <!-- Dropdown -->
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> <!-- / .row -->
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+
+                                            <!-- Avatar -->
+                                            <a href="project-overview.html" class="avatar avatar-4by3">
+                                                <img src="assets/img/avatars/projects/project-3.jpg" alt="..."
+                                                     class="avatar-img rounded">
+                                            </a>
+
+                                        </div>
+                                        <div class="col ms-n2">
+
+                                            <!-- Title -->
+                                            <h4 class="mb-1">
+                                                <a href="project-overview.html">Safari Exploration</a>
+                                            </h4>
+
+                                            <!-- Time -->
+                                            <p class="card-text small text-muted">
+                                                <time datetime="2018-05-24">Updated 4hr ago</time>
+                                            </p>
+
+                                        </div>
+                                        <div class="col-auto">
+
+                                            <!-- Dropdown -->
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> <!-- / .row -->
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+
+                                            <!-- Avatar -->
+                                            <a href="project-overview.html" class="avatar avatar-4by3">
+                                                <img src="assets/img/avatars/projects/project-5.jpg" alt="..."
+                                                     class="avatar-img rounded">
+                                            </a>
+
+                                        </div>
+                                        <div class="col ms-n2">
+
+                                            <!-- Title -->
+                                            <h4 class="mb-1">
+                                                <a href="project-overview.html">Personal Site</a>
+                                            </h4>
+
+                                            <!-- Time -->
+                                            <p class="card-text small text-muted">
+                                                <time datetime="2018-05-24">Updated 4hr ago</time>
+                                            </p>
+
+                                        </div>
+                                        <div class="col-auto">
+
+                                            <!-- Dropdown -->
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-ellipses dropdown-toggle" role="button"
+                                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a href="#!" class="dropdown-item">
+                                                        Action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Another action
+                                                    </a>
+                                                    <a href="#!" class="dropdown-item">
+                                                        Something else here
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> <!-- / .row -->
+                                </div>
+                            </div>
+
+                        </div> <!-- / .card-body -->
+                    </div> <!-- / .card -->
+
+                </div>
+
+            </div> <!-- / .row -->
         </div>
-        <div><br><br></div>
-        <a href="{% url 'tasksapp:edit_answer' pk %}" class="btn btn-primary"> Изменить</a>
-    {% else %}
-        <br>
-        <br>
-        <form class="form-horizontal" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <br>
-
-            <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">
-        </form>
-    {% endif %}
-
-
-
-
 
 {% endblock %}

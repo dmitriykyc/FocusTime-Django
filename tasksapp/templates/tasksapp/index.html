@@ -3,20 +3,25 @@
 
 
 {% block content %}
+    <div class="row">
+        <div class="col-12 col-xl-1">Привет</div>
+        <div class="col-12 col-xl-10">
 
-    {% for i in tasks %}
 
-        {% if i.id <= last_task.task_id.id|add:'1' or i.id == 1 %}
-            <div><br><br></div>
-            <a href="{% url 'tasks:task' i.pk %}" class="btn btn-primary btn-lg">{{ i.title }}</a>
+            {% for i in tasks %}
 
-        {% else %}
-            <div><br><br></div>
-            <a href="#" class="btn btn-secondary btn-lg" disabled="">{{ i.title }}</a>
-            {#             <button type="button" class="btn btn-primary btn-lg" disabled>{{ i.description }}</button>#}
-        {% endif %}
+                {% if i.id <= last_task.task_id.id|add:'1' or i.id == 1 %}
+                    <div><br><br></div>
+                    <a href="{% url 'tasks:task' i.pk %}" class="btn btn-primary btn-lg">{{ i.title }}</a>
 
-    {% endfor %}
+                {% else %}
+                    <div><br><br></div>
+                    <a href="#" class="btn btn-secondary btn-lg" disabled="">{{ i.title }}</a>
 
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}

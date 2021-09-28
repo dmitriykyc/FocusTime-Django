@@ -9,6 +9,16 @@ class UserAnswerForm(forms.ModelForm):
         model = UserAnswerTasks
         fields = ['answer', 'is_public', 'media']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['answer'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Ваши записи'
+        }),
+        self.fields['is_public'].widget.attrs.update({
+            'class': 'form-check-input'
+        })
+
 
 
 
