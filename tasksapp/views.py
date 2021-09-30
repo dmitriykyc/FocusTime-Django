@@ -27,6 +27,7 @@ def index(request):
 def task(request, pk=None):
     page_title = 'Задания'
     content_task = TasksModel.objects.get(id=pk)
+    all_task = TasksModel.objects.all()
 
     user = TimeFocusUsers.objects.get(id=request.user.id)
 
@@ -52,6 +53,7 @@ def task(request, pk=None):
     content = {
         "page_title": page_title,
         "content_task": content_task,
+        'all_task': all_task,
         'form': form,
         'type_form': type_form,
         'pk': pk
