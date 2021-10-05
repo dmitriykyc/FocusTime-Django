@@ -8,16 +8,22 @@ from authapp.models import TimeFocusUsers
 def index(request):
     page_title = 'План обучения'
     user = request.user
-    if UserAnswerTasks.objects.filter(user_id=user).order_by('-task_id'):
-        last_task = UserAnswerTasks.objects.filter(user_id=user).order_by('-task_id')[0]
+    last_task_request = UserAnswerTasks.objects.filter(user_id=user).order_by('-task_id') # Выношу отдельную переменную
+                                                                  # чтобы if last_task_request: не делать тот же запрос
+    if last_task_request:
+        last_task = last_task_request[0]
     else:
         last_task = None
+
     tasks = TasksModel.objects.filter(is_activ=1)
+    all_answers = UserAnswerTasks.objects.filter(user_id=user)
+    # tasks = TasksModel.objects.select_related().filter(task_id=1)
 
     content = {
         "page_title": page_title,
         "last_task": last_task,
-        "tasks": tasks
+        "tasks": tasks,
+        "all_answers": all_answers
     }
 
     return render(request, 'tasksapp/index.html', content)
