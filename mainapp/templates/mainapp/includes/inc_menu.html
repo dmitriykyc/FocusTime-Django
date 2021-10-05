@@ -12,7 +12,7 @@
     </li>
     {% if request.user.is_authenticated %}
         <li class="nav-item">
-            <a class="nav-link" href="#">{{ user }}</a>
+            <a class="nav-link" href="{% url 'authapp:profile' %}">{{ user }}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url "tasks:tasks_index" %}">Обучение</a>

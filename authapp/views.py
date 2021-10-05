@@ -45,3 +45,14 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('index')
+
+
+def profile(request):
+    page_title = "Ваш профиль"
+
+    content = {
+        "page_title": page_title
+    }
+
+    return render(request, 'authapp/profile.html', content)
+
