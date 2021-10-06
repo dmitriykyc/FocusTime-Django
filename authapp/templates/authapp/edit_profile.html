@@ -1,0 +1,158 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-xl-1"></div>
+            <div class="col-12 col-xl-10">
+                <!-- MAIN CONTENT -->
+                <div class="main-content">
+
+
+                    <!-- HEADER -->
+                    <div class="header">
+                        <div class="container-fluid">
+
+                            <!-- Body -->
+                            <div class="header-body">
+                                <div class="row align-items-end">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+                                        <div class="avatar avatar-xxl header-avatar-top">
+                                            <img src="{% static 'img/task_icon.png' %}" alt="..."
+                                                 class="avatar-img rounded-circle border border-4 border-body">
+                                        </div>
+
+                                    </div>
+                                    <div class="col mb-3 ms-n3 ms-md-n2">
+
+                                        <!-- Pretitle -->
+                                        <h6 class="header-pretitle">
+                                            Ваш профиль:
+                                        </h6>
+
+                                        <!-- Title -->
+                                        <h1 class="header-title">
+                                            Имя Пользователя
+                                        </h1>
+
+                                    </div>
+                                    <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
+
+{#                                        <!-- Button -->#}
+{#                                        <input type="submit" class="btn btn-primary d-block d-md-inline-block lift"#}
+{#                                                           value="Сохранить изменения" name="save_form">#}
+
+                                    </div>
+                                </div> <!-- / .row -->
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Верхняя навигация -->
+                                        <ul class="nav nav-tabs nav-overflow header-tabs">
+                                            <li class="nav-item">
+                                                <a href="{% url 'authapp:profile' %}" class="nav-link">
+                                                    Информация
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{% url 'auth:edit_form' %}" class="nav-link active">
+                                                    Настройки
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="profile-projects.html" class="nav-link">
+                                                    Мои записи в блоге
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div> <!-- / .header-body -->
+
+                        </div>
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <!-- Первая карточка -->
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <!-- Header -->
+                                        <div class="mb-3">
+                                            <div class="row align-items-center">
+
+                                                <div class="col ms-n2">
+
+                                                    <!-- Title -->
+                                                    <h4 class="mb-1">
+                                                        Изменение информации:
+                                                    </h4>
+
+
+                                                    <form action="" method="post" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        {{ form.as_p }}
+                                                        <input type="submit" class="btn btn-primary"
+                                                           value="Сохранить изменения">
+                                                    </form>
+                                                    <br>
+
+                                                    <!-- Divider -->
+                                                    <hr>
+
+                                                </div>
+                                                <div class="col-auto">
+
+
+                                                </div>
+                                            </div> <!-- / .row -->
+                                        </div>
+
+                                        <!-- Информация о профиле -->
+
+
+                                        <!-- Divider -->
+                                        <hr>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-12 col-xl-4">
+
+
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div> <!-- / .main-content -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

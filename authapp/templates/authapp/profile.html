@@ -1,9 +1,382 @@
 {% extends 'mainapp/base.html' %}
-{%  load static %}
+{% load static %}
 
 {% block content %}
 
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-xl-1"></div>
+            <div class="col-12 col-xl-10">
+                <!-- MAIN CONTENT -->
+                <div class="main-content">
 
+
+                    <!-- HEADER -->
+                    <div class="header">
+                        <div class="container-fluid">
+
+                            <!-- Body -->
+                            <div class="header-body">
+                                <div class="row align-items-end">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+                                        <div class="avatar avatar-xxl header-avatar-top">
+                                            <img src="{% static 'img/task_icon.png' %}" alt="..."
+                                                 class="avatar-img rounded-circle border border-4 border-body">
+                                        </div>
+
+                                    </div>
+                                    <div class="col mb-3 ms-n3 ms-md-n2">
+
+                                        <!-- Pretitle -->
+                                        <h6 class="header-pretitle">
+                                            Ваш профиль:
+                                        </h6>
+
+                                        <!-- Title -->
+                                        <h1 class="header-title">
+                                            Имя Пользователя
+                                        </h1>
+
+                                    </div>
+                                    <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
+
+                                        <!-- Button -->
+                                        <a href="{% url 'auth:edit_form' %}" class="btn btn-primary d-block d-md-inline-block lift">
+                                            Изменить
+                                        </a>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Верхняя навигация -->
+                                        <ul class="nav nav-tabs nav-overflow header-tabs">
+                                            <li class="nav-item">
+                                                <a href="profile-posts.html" class="nav-link active">
+                                                    Информация
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{% url 'auth:edit_form' %}" class="nav-link">
+                                                    Настройки
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="profile-projects.html" class="nav-link">
+                                                    Мои записи в блоге
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div> <!-- / .header-body -->
+
+                        </div>
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12 col-xl-8">
+
+                                <!-- Первая карточка -->
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <!-- Header -->
+                                        <div class="mb-3">
+                                            <div class="row align-items-center">
+
+                                                <div class="col ms-n2">
+
+                                                    <!-- Title -->
+                                                    <h4 class="mb-1">
+                                                        Прошлый раз Вы были в сети:
+                                                    </h4>
+
+                                                    <!-- Time -->
+                                                    <p class="card-text small text-muted">
+                                                        <span class="fe fe-clock"></span>
+                                                        <time datetime="2018-05-24">Вчера вечером</time>
+                                                    </p>
+                                                    <!-- Divider -->
+                                                    <hr>
+
+                                                </div>
+                                                <div class="col-auto">
+
+
+                                                </div>
+                                            </div> <!-- / .row -->
+                                        </div>
+
+                                        <!-- Информация о профиле -->
+                                        <div>
+                                            <div class="col ms-n2">
+
+                                                <!-- Heading -->
+                                                <h4 class="mb-1">
+                                                    Ваше имя:
+                                                </h4>
+
+                                                <!-- Text -->
+                                                <small class="text-muted">
+                                                    {{ user.username }}
+                                                </small>
+
+                                            </div>
+                                            <br>
+                                            <div class="col ms-n2">
+
+                                                <!-- Heading -->
+                                                <h4 class="mb-1">
+                                                    Ваш E-Mail:
+                                                </h4>
+
+                                                <!-- Text -->
+                                                <small class="text-muted">
+                                                    {{ user.email }}
+                                                </small>
+
+                                            </div>
+                                            <br>
+                                            <div class="col ms-n2">
+
+                                                <!-- Heading -->
+                                                <h4 class="mb-1">
+                                                    Дата рождения:
+                                                </h4>
+
+                                                <!-- Text -->
+                                                <small class="text-muted">
+                                                    {{ user.b_date }}
+                                                </small>
+
+                                            </div>
+                                            <br>
+                                            <div class="col ms-n2">
+
+                                                <!-- Heading -->
+                                                <h4 class="mb-1">
+                                                    Город:
+                                                </h4>
+
+                                                <!-- Text -->
+                                                <small class="text-muted">
+                                                    {{ user.city }}
+                                                </small>
+
+                                            </div>
+                                            <br>
+                                            <div class="col ms-n2">
+
+                                                <!-- Heading -->
+                                                <h4 class="mb-1">
+                                                    Профиль инстаграмм:
+                                                </h4>
+
+                                                <!-- Text -->
+                                                <small class="text-muted">
+                                                    {{ user.instagram }}
+                                                </small>
+
+                                            </div>
+                                            <br>
+                                            <div class="col ms-n2">
+
+                                                <!-- Heading -->
+                                                <h4 class="mb-1">
+                                                    О себе:
+                                                </h4>
+
+                                                <!-- Text -->
+                                                <small class="text-muted">
+                                                    {{ user.user_info|linebreaks }}
+                                                </small>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Divider -->
+                                        <hr>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-12 col-xl-4">
+
+                                <!-- Вторая карточка -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-header">
+                                            <!-- Title -->
+                                            <h4 class="card-header-title">
+                                                Ваш прогресс
+                                            </h4>
+                                        </div>
+                                        <!-- List group -->
+                                        <div class="list-group list-group-flush my-n3">
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        <!-- Title -->
+                                                        <h5 class="mb-0">
+                                                            Вы зарегистрированы
+                                                        </h5>
+
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <!-- Time -->
+                                                        <time class="small text-muted" datetime="1988-10-24">
+                                                            10/24/88
+                                                        </time>
+
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        <!-- Title -->
+                                                        <h5 class="mb-0">
+                                                            Проёдено заданий
+                                                        </h5>
+
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <!-- Time -->
+                                                        <p class="small text-muted">
+                                                            110
+                                                        </p>
+
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        <!-- Title -->
+                                                        <h5 class="mb-0">
+                                                            Написано постов и ответов:
+                                                        </h5>
+
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <!-- Text -->
+                                                        <small class="text-muted">
+                                                            140
+                                                        </small>
+
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        <!-- Title -->
+                                                        <h5 class="mb-0">
+                                                            Из них публичных
+                                                        </h5>
+
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <!-- Text -->
+                                                        <small class="text-muted">
+                                                            78
+                                                        </small>
+
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        <!-- Title -->
+                                                        <h5 class="mb-0">
+                                                            Лайков у вас:
+                                                        </h5>
+
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <!-- Text -->
+                                                        <small class="text-muted">
+                                                            12 433
+                                                        </small>
+
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        <!-- Title -->
+                                                        <h5 class="mb-0">
+                                                            Коментариев у вас:
+                                                        </h5>
+
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <!-- Text -->
+                                                        <small class="text-muted">
+                                                            1 854
+                                                        </small>
+
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Третья карточка -->
+{#                                <div class="card">#}
+{#                                    <div class="card-header">#}
+{##}
+{#                                        <!-- Title -->#}
+{#                                        <h4 class="card-header-title">#}
+{#                                            Второй блок#}
+{#                                        </h4>#}
+{##}
+{#                                    </div>#}
+{#                                    <div class="card-body">#}
+{##}
+{#                                        <!-- Chart -->#}
+{#                                        <div class="chart chart-sm">#}
+{#                                            <canvas id="weeklyHoursChart" class="chart-canvas"></canvas>#}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div> <!-- / .main-content -->
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

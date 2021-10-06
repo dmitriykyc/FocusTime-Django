@@ -70,12 +70,12 @@ def task(request, pk=None):
 
 def edit_answer(request, pk=None):
     page_title = 'Редактировать ответ'
-    content_task = TasksModel.objects.get(id=1)
+    content_task = TasksModel.objects.get(id=pk)
     user = TimeFocusUsers.objects.get(id=request.user.id)
     answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id, task_id=pk)
 
     if request.method == 'POST':
-        form = UserEditForm(request.POST, request.FILES, instance=answer_if_exist)
+        form = UserEditForm(request.POST, request.FILES)
         if form.is_valid():
             answer_if_exist.answer = request.POST['answer']
             answer_if_exist.user_id = user
