@@ -5,7 +5,7 @@ from .models import TasksModel, UserAnswerTasks
 from authapp.models import TimeFocusUsers
 
 
-def index(request):
+def index2(request):
     page_title = 'План обучения'
     user = request.user
     last_task_request = UserAnswerTasks.objects.filter(user_id=user).order_by('-task_id') # Выношу отдельную переменную
@@ -24,6 +24,48 @@ def index(request):
         "last_task": last_task,
         "tasks": tasks,
         "all_answers": all_answers
+    }
+
+    return render(request, 'tasksapp/index.html', content)
+
+
+def index(request):
+    page_title = 'План обучения'
+    user = request.user
+
+    # Берём последний ответ данный этим пользователем
+    last_answer_user = UserAnswerTasks.objects.filter(user_id=user).order_by('-task_id')[0] # Выношу отдельную переменную
+                                                                  # чтобы if last_task_request: не делать тот же запрос
+
+    last_task_done = TasksModel.objects.get(id=last_answer_user.task_id.id)
+
+    if last_answer_user:
+        last_task = last_answer_user
+    else:
+        last_task = None
+
+    tasks = TasksModel.objects.filter(is_activ=1).order_by("serial_numb_task")
+
+    # all_answers = UserAnswerTasks.objects.filter(user_id=user)
+    # tasks = TasksModel.objects.select_related().filter(task_id=1)
+
+    tasks_without_answer = []
+    tasks_done = []
+
+    for task in tasks:
+        if task.serial_numb_task <= last_task_done.serial_numb_task:
+            tasks_done.append(task)
+        else:
+            tasks_without_answer.append(task)
+
+
+
+    content = {
+        "page_title": page_title,
+        "last_task": last_task,
+        "tasks_done": tasks_done[0:3],
+        'tasks_without_answer': tasks_without_answer
+        # "all_answers": all_answers
     }
 
     return render(request, 'tasksapp/index.html', content)
