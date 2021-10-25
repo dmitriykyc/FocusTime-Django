@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs nav-overflow header-tabs">
+    <li class="nav-item">
+        <a href="{% url 'tasks:tasks_index' %}"
+           class="nav-link text-nowrap
+                               {% if request.resolver_match.url_name == 'tasks_index' %}
+                                    active disabled
+                               {% endif %}">
+            Текущие задания
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'tasks:tasks_done' %}" class="nav-link text-nowrap
+                               {% if request.resolver_match.url_name == 'tasks_done' %}
+                                    active disabled
+                               {% endif %} ">
+            Завершенные задания <span
+                class="badge rounded-pill bg-secondary-soft">{{ done_tasks|length }}</span>
+        </a>
+    </li>
+</ul>

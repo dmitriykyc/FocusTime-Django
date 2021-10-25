@@ -22,7 +22,7 @@ class UserAnswerForm(forms.ModelForm):
 
 
 
-class UserEditForm(forms.ModelForm):
+class UserAnswerEditForm(forms.ModelForm):
     class Meta:
         model = UserAnswerTasks
         fields = ['answer', 'is_public', 'media']

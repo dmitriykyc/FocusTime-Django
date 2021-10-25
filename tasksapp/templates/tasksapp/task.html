@@ -101,7 +101,7 @@
 
                             <!-- Заголово -->
                             <h4 class="card-header-title" align="center">
-                                Ваш прогресс
+                                Уже пройдено:
                             </h4>
 
                             {#                            <!-- Ссылка справа, не знаю оставлять ли, слишком большое -->#}
@@ -110,9 +110,9 @@
                         </div>
                         <div class="card-body">
 
-                            <!-- List group -->
+                            <!-- Пройденные задания в правом блоке -->
                             <div class="list-group list-group-flush my-n3">
-                                {% for i in all_task %}
+                                {% for i in progress_bar %}
 
                                     <div class="list-group-item">
                                         <div class="row align-items-center">
