@@ -1,10 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .forms import UserAnswerForm, UserAnswerEditForm
 from .models import TasksModel, UserAnswerTasks
 from authapp.models import TimeFocusUsers
 
-from .services import get_last_answer_user_and_last_task, checking_for_responce, save_edit_answer
+from .services import get_last_answer_user_and_last_task, checking_for_responce, save_edit_answer, \
+    create_answer_for_user
 
 
 def index(request):
@@ -42,18 +45,18 @@ def tasks_done(request):
 
 def task(request, pk=None):
     """Отображает страницу с заднием и ответом"""
-
-    # Берём контент с заданием
-    content_task = TasksModel.objects.get(id=pk)
+    content_task = TasksModel.objects.get(id=pk)  # Берём контент с заданием
     page_title = content_task.title
-
     user = request.user
-
-    progress_bar = get_last_answer_user_and_last_task(user)['tasks_done']
-
+    progress_bar = get_last_answer_user_and_last_task(user)['tasks_done']  # С права у нас прогресс бар по заданиям
 
     # Проверяем наличие ответа на это задание
     checking = checking_for_responce(request, pk, user)
+
+    # Если мы получачем ответ на задание:
+    if request.POST.get('answer_sent') and pk:
+        create_answer_for_user(request, pk, user)
+        return HttpResponseRedirect(reverse('tasksapp:task', kwargs={'pk': pk}))
 
     content = {
         "page_title": page_title,
@@ -64,7 +67,6 @@ def task(request, pk=None):
         'pk': pk
     }
 
-
     return render(request, 'tasksapp/task.html', content)
 
 
@@ -73,14 +75,19 @@ def edit_answer(request, pk=None):
     page_title = 'Редактор ответа'
     content_task = TasksModel.objects.get(id=pk)
     user = request.user
-    answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id, task_id=pk)
+    answer_if_exist = UserAnswerTasks.objects.get(user_id=user, task_id=pk)
 
-    result = save_edit_answer(request, answer_if_exist, pk)
+    if request.method == 'POST':
+        form = save_edit_answer(request, answer_if_exist, pk)
+        return HttpResponseRedirect(reverse('tasksapp:task', kwargs={'pk': pk}))
+
+    else:
+        form = UserAnswerEditForm(instance=answer_if_exist)
 
     content = {
         "page_title": page_title,
         "content_task": content_task,
-        'form': result
+        'form': form
     }
 
     return render(request, 'tasksapp/update.html', content)
