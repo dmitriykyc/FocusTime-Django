@@ -87,7 +87,9 @@ def edit_answer(request, pk=None):
     content = {
         "page_title": page_title,
         "content_task": content_task,
-        'form': form
+        'form': form,
+        'answer': answer_if_exist
+
     }
 
     return render(request, 'tasksapp/update.html', content)

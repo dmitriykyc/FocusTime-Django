@@ -5,7 +5,7 @@ from .models import UserAnswerTasks, TasksModel
 
 
 def get_last_answer_user_and_last_task(user):
-    '''Получает задание, на которое пользователь дал последний ответ'''
+    """Получает задание, на которое пользователь дал последний ответ"""
 
     # Берём ответ на последнее задание у этого пользователя
     tasks_without_answer = []
@@ -28,7 +28,6 @@ def get_last_answer_user_and_last_task(user):
         last_answer_user = None
         tasks_without_answer = all_tasks
 
-
     return {"last_answer_user": last_answer_user,
             "tasks_without_answer": tasks_without_answer,
             "tasks_done": tasks_done}
@@ -38,10 +37,12 @@ def checking_for_responce(request, pk: int, user):
     """Проверяет наличие ответа на вопрос и отправляет форму и тип формы (для ответа или уже с ответом)"""
     if UserAnswerTasks.objects.filter(user_id=request.user.id, task_id=pk):  # Если у БД уже есть ответ на это задание
         type_form = 1  # Тип для показа уже существующего ответа
-        answer_if_exist = UserAnswerTasks.objects.get(user_id=request.user.id,
+
+        # print(f'user = {user.id}, pk = {pk}')
+
+        answer_if_exist = UserAnswerTasks.objects.get(user_id=user.id,
                                                       task_id=pk)  # Возвращаем этот ответ в форму
         form = answer_if_exist
-
     else:
         form = UserAnswerForm()
         type_form = 2 # Форма пустая для заполнения
@@ -57,21 +58,14 @@ def save_edit_answer(request, answer_if_exist, pk):
     form = UserAnswerEditForm(request.POST, request.FILES, instance=answer_if_exist)
     if form.is_valid():
         form.save()
-
     return form
-
-
-
-
-
-
 
 
 def create_answer_for_user(request, pk, user):
     """Сохраняет ответ в БД"""
     answer_text = request.POST.get('answer')
     task_id = TasksModel.objects.get(id=pk)
-    if 'mediaq' in request.FILES:
+    if 'media' in request.FILES:
         answer = UserAnswerTasks.objects.create(task_id=task_id, user_id=user, answer=answer_text,
                                                 media=request.FILES['media'])
     else:

@@ -30,13 +30,13 @@
 
                                         <!-- Title -->
                                         <h1 class="mb-1">
-                                            Первое классное задание
+                                            {{ content_task.title }}
                                         </h1>
 
                                         <!-- Time -->
                                         <p class="card-text small text-muted">
                                             <span class="fe fe-clock"></span>
-                                            <time datetime="2018-05-24">Вы приступили к заданию в 21:17</time>
+                                            <time datetime="2018-05-24">Вы приступили к заданию в 21:17 <br> {{ content_task.description }}</time>
                                         </p>
 
                                     </div>
@@ -153,5 +153,6 @@
 
             </div> <!-- / .row -->
         </div>
+    </div>
 
 {% endblock %}

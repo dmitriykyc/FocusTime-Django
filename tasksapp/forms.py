@@ -18,6 +18,9 @@ class UserAnswerForm(forms.ModelForm):
         self.fields['is_public'].widget.attrs.update({
             'class': 'form-check-input'
         })
+        self.fields['media'].widget.attrs.update({
+            'label': '11111'
+        })
 
 
 
@@ -29,5 +32,10 @@ class UserAnswerEditForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['media'].widget.attrs.update({'class': 'form-control'})
-
+        self.fields['answer'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Ваши записи'
+        }),
+        self.fields['is_public'].widget.attrs.update({
+            'class': 'form-check-input'
+        })
