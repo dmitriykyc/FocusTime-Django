@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'mainapp',
     'authapp',
     'tasksapp',
+    'socnetwapp',
+    'blogapp'
 
 ]
 
