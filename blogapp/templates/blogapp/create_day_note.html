@@ -1,0 +1,127 @@
+{% extends 'mainapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-xl-1"></div>
+            <div class="col-12 col-xl-10">
+                {% include 'tasksapp/include/inc_menu_tasks.html' %}
+                <!-- MAIN CONTENT -->
+                <div class="main-content">
+                    <!-- CONTENT -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <!-- Первая карточка -->
+                            <div class="col-12 col-xl-7">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <!-- Header -->
+                                        <div class="mb-3">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+
+                                                    <!-- Avatar -->
+                                                    <a href="#!" class="avatar">
+                                                        <img src="/static/media/{{ user.avatar }}" alt="..."
+                                                             class="avatar-img rounded-circle">
+                                                    </a>
+
+                                                </div>
+                                                <div class="col ms-n2">
+
+                                                    <!-- Title -->
+                                                    <h4 class="mb-1">
+                                                        {{ request.user.first_name }} {{ request.user.last_name }}
+                                                    </h4>
+
+                                                    <!-- Time -->
+                                                    <p class="card-text small text-muted">
+                                                        <span class="fe fe-clock"></span>
+                                                        <time datetime="2018-05-24">Какой сегодня
+                                                            день: {% now "j.n.y G:i" %}
+                                                        </time>
+                                                    </p>
+
+                                                </div>
+
+                                            </div> <!-- / .row -->
+                                        </div>
+
+                                        <!-- Text -->
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            <!-- Divider -->
+                                            <hr>
+
+
+                                            <!-- Кнопка сохранить -->
+                                            <div class="text-muted mb-2">
+                                                <input class="btn btn-lg w-100 btn-primary mb-3" type="submit"
+                                                       value="Сохранить"
+                                                       name="createnotesday">
+
+
+                                            </div>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- Вторая карточка -->
+                            <div class="col-12 col-xl-5 ">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-header">
+                                            <!-- Title -->
+                                            <h4 class="card-header-title">
+                                                О чём написать?
+                                            </h4>
+                                        </div>
+                                        <!-- List group -->
+                                        <div class="list-group list-group-flush my-n3">
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        Вы можете взять за основу наше ежедневное слово: "Hello World"
+                                                        и поразмышлять на эту тему лично
+
+
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+                                                        Или поговорить с собой о следующем:
+                                                    </div>
+                                                </div> <!-- / .row -->
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div> <!-- / .main-content -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

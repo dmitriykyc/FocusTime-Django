@@ -23,7 +23,7 @@
 
                                         <!-- Avatar -->
                                         <div class="avatar avatar-xxl header-avatar-top">
-                                            <img src="{% static 'img/task_icon.png' %}" alt="..."
+                                            <img src="/static/media/{{ user.avatar }}" alt="..."
                                                  class="avatar-img rounded-circle border border-4 border-body">
                                         </div>
 
@@ -31,25 +31,28 @@
                                     <div class="col mb-3 ms-n3 ms-md-n2">
 
                                         <!-- Pretitle -->
-                                        <h6 class="header-pretitle">
+                                        <h4 class="header-pretitle">
                                             Ваш профиль:
-                                        </h6>
+                                        </h4>
 
                                         <!-- Title -->
                                         <h1 class="header-title">
-                                            Имя Пользователя
+                                            {{ user.first_name }} {{ user.last_name }}
                                         </h1>
 
                                     </div>
-                                    <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
+                                    <div class="col-12 col-md-2 mt-2 mt-md-0 mb-md-3">
 
                                         <!-- Button -->
-                                        <a href="{% url 'auth:edit_form' %}" class="btn btn-primary d-block d-md-inline-block lift">
+                                        <a href="{% url 'auth:edit_form' %}" class="btn btn-primary d-block d-md-inline-block">
                                             Изменить
                                         </a>
 
+
                                     </div>
+                                    
                                 </div> <!-- / .row -->
+                                <br>
                                 <div class="row align-items-center">
                                     <div class="col">
 
@@ -102,7 +105,7 @@
                                                     <!-- Time -->
                                                     <p class="card-text small text-muted">
                                                         <span class="fe fe-clock"></span>
-                                                        <time datetime="2018-05-24">Вчера вечером</time>
+                                                        <time datetime="2018-05-24">{{ user.last_login }}</time>
                                                     </p>
                                                     <!-- Divider -->
                                                     <hr>
@@ -121,12 +124,26 @@
 
                                                 <!-- Heading -->
                                                 <h4 class="mb-1">
-                                                    Ваше имя:
+                                                    Ваш логин для входа на сайт:
                                                 </h4>
 
                                                 <!-- Text -->
                                                 <small class="text-muted">
                                                     {{ user.username }}
+                                                </small>
+
+                                            </div>
+                                            <br>
+                                            <div class="col ms-n2">
+
+                                                <!-- Heading -->
+                                                <h4 class="mb-1">
+                                                    Ваше имя:
+                                                </h4>
+
+                                                <!-- Text -->
+                                                <small class="text-muted">
+                                                    {{ user.first_name }} {{ user.last_name }}
                                                 </small>
 
                                             </div>

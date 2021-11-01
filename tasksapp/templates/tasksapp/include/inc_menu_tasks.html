@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'tasks:tasks_index' %}"
+                <a href="{% url 'blogapp:my_notes_day' %}"
                    class="nav-link text-nowrap
                                {% if request.resolver_match.url_name == 'my_notes_day' %}
                                     active disabled
@@ -34,7 +34,7 @@
     <div class="col-12 col-md-auto ">
 
         <!-- Button -->
-        <a href="#!" class="btn btn-primary d-block d-md-inline-block">
+        <a href="{% url 'blog:create_note_day' %}" class="btn btn-primary d-block d-md-inline-block">
             Написать ежедневную запись
         </a>
 

@@ -60,7 +60,7 @@ class UserRegistrationForm(UserCreationForm):
 class UserEditForm(UserChangeForm):
     class Meta:
         model = TimeFocusUsers
-        fields = ('username', 'email', 'avatar', "b_date", "user_info", "instagram", "city")
+        fields = ('username', 'first_name', 'last_name', 'email', 'avatar', "b_date", "user_info", "instagram", "city")
 
 
     def __init__(self, *args, **kwargs):
@@ -70,6 +70,21 @@ class UserEditForm(UserChangeForm):
         })
         self.fields['username'].help_text = ''
         self.fields['username'].label = 'Ваш логин:'
+
+
+        self.fields['first_name'].widget.attrs.update({
+            'class': 'form-control'
+        })
+        self.fields['first_name'].help_text = ''
+        self.fields['first_name'].label = 'Ваше имя:'
+
+
+        self.fields['last_name'].widget.attrs.update({
+            'class': 'form-control'
+        })
+        self.fields['last_name'].help_text = ''
+        self.fields['last_name'].label = 'Ваша фамилия:'
+
 
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
@@ -83,11 +98,13 @@ class UserEditForm(UserChangeForm):
         self.fields['user_info'].help_text = ''
         self.fields['user_info'].label = 'О себе:'
 
+
         self.fields['city'].widget.attrs.update({
             'class': 'form-control'
         })
         self.fields['city'].help_text = ''
         self.fields['city'].label = 'Ваш город:'
+
 
         self.fields['avatar'].widget.attrs.update({
             'class': 'form-control'
@@ -95,10 +112,12 @@ class UserEditForm(UserChangeForm):
         self.fields['avatar'].help_text = ''
         self.fields['avatar'].label = 'Выберите картинку на аватарку:'
 
+
         self.fields['instagram'].widget.attrs.update({
             'class': 'form-control'
         })
         self.fields['instagram'].help_text = ''
         self.fields['instagram'].label = 'Ссылка на инстаграм:'
+
 
         self.fields['password'].widget = HiddenInput()

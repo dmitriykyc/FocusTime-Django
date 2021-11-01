@@ -14,7 +14,7 @@ class UserAnswerForm(forms.ModelForm):
         self.fields['answer'].widget.attrs.update({
             'class': 'form-control',
             'placeholder': 'Ваши записи'
-        }),
+        })
         self.fields['is_public'].widget.attrs.update({
             'class': 'form-check-input'
         })
