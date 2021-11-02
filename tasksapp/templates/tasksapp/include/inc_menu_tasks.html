@@ -16,8 +16,7 @@
                                {% if request.resolver_match.url_name == 'tasks_done' %}
                                     active disabled
                                {% endif %} ">
-                    Завершенные задания <span
-                        class="badge rounded-pill bg-secondary-soft">{{ done_tasks|length }}</span>
+                    Завершенные задания <span class="badge rounded-pill bg-secondary-soft">{{ done_tasks|length }}</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -27,6 +26,7 @@
                                     active disabled
                                {% endif %}">
                     Записи о прошедших днях
+
                 </a>
             </li>
         </ul>

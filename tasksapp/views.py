@@ -22,7 +22,8 @@ def index(request):
         "page_title": page_title,
         "last_answer_user": last_answ_and_task["last_answer_user"],
         "done_tasks": last_answ_and_task["tasks_done"][0:3],
-        'tasks_without_answer': last_answ_and_task["tasks_without_answer"]
+        'tasks_without_answer': last_answ_and_task["tasks_without_answer"],
+
     }
 
     return render(request, 'tasksapp/index.html', content)
