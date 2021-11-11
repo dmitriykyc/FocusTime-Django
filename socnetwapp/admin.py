@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from socnetwapp.models import GroupPosts, PostToTheFeed
+
+admin.site.register(GroupPosts)
+admin.site.register(PostToTheFeed)

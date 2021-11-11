@@ -2,26 +2,46 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <div class="card w-100">
-                            <div class="card-body align-baseline">
-                                <h5 class="card-title">Меняй свою жизнь вместе с нам2и!</h5>
-                                <p class="card-text">Держись в фокусе и живи своеё жизнью!</p>
-                                <a href="#" class="btn btn-primary">Button</a>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-xl-1"></div>
+            <div class="col-12 col-xl-10">
+                <!-- Card -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-10 col-xl-8">
+
+                                <!-- Image -->
+                                <img src="{% static 'img/focus_logo.png' %}" alt="..." class="img-fluid mt-n5 mb-4"
+                                     style="max-width: 572px;">
+
+                                <!-- Title -->
+                                <h1>
+                                    Пусть Ваша жизнь будет в фокусе.
+                                </h1>
+
+                                <!-- Content -->
+                                <p class="text-muted">
+                                    Тогда Вы будете жить так, как захотите сами...
+                                </p>
+
+                                <!-- Button -->
+                                <a href="{% url "tasks:tasks_index" %}" class="btn btn-primary lift">
+                                    Обучаться
+                                </a>
+                                <hr>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <img src="{% static 'img/cubs.jpg' %}" class="img-fluid" alt="...">
+                        </div> <!-- / .row -->
                     </div>
                 </div>
-                А тут ниже всякая инфа дальше пойдёт.
             </div>
+
         </div>
     </div>
+
+
+
 
 {% endblock %}
