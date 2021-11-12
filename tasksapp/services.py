@@ -71,3 +71,13 @@ def create_answer_for_user(request, pk, user):
     else:
         answer = UserAnswerTasks.objects.create(task_id=task_id, user_id=user, answer=answer_text)
     answer.save()
+
+
+
+
+
+
+
+
+
+
