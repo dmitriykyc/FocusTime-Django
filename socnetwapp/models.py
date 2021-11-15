@@ -11,7 +11,7 @@ class GroupPosts(models.Model):
 
 
 class PostToTheFeed(models.Model):
-    id_user = models.ForeignKey(TimeFocusUsers, verbose_name='Пользователь', on_delete=models.CASCADE)
+    id_user = models.ForeignKey(TimeFocusUsers, verbose_name='Пользователь', related_name='user_created_post', on_delete=models.CASCADE)
     title = models.CharField('Заголовок', max_length=200, blank=True, null=True)
     description = models.TextField('Текст поста')
     date_create = models.DateTimeField('Дата и время создания', auto_now_add=True)

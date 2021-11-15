@@ -1,0 +1,35 @@
+<div class="row align-items-center">
+
+    <div class="header-body col mb-3 ms-n3 ms-md-n2">
+        <ul class="nav nav-tabs nav-overflow header-tabs">
+            <li class="nav-item">
+                <a href="{% url 'tasks:tasks_index' %}"
+                   class="nav-link text-nowrap
+                               {% if request.resolver_match.url_name == '' %}
+                                    active disabled
+                               {% endif %}">
+                    Вся лента
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'tasks:tasks_done' %}" class="nav-link text-nowrap
+                               {% if request.resolver_match.url_name == 'tasks_done' %}
+                                    active disabled
+                               {% endif %} ">
+                    Мои посты <span class="badge rounded-pill bg-secondary-soft">0</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-12 col-md-auto ">
+
+        <!-- Button -->
+        <a href="{% url 'blog:create_note_day' %}" class="btn btn-primary d-block d-md-inline-block">
+            Написать пост
+        </a>
+
+    </div>
+
+</div> <!-- / .row -->
+

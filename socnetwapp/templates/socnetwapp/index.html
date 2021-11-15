@@ -7,9 +7,11 @@
         <div class="row">
             <div class="col-12 col-xl-1"></div>
             <div class="col-12 col-xl-10">
-                <br><br>
+            {% include 'socnetwapp/include/inc_menu_feed.html' %}
+
                 <!-- MAIN CONTENT -->
                 <div class="main-content">
+
 
                     <!-- CONTENT -->
                     <div class="container-fluid">
@@ -32,9 +34,10 @@
                                                     <div class="col-auto">
 
                                                         <!-- Avatar -->
-                                                        {% if user.avatar %}
+                                                        {% if post.id_user.avatar %}
                                                             <a href="#" class="avatar">
-                                                                <img src="/static/media/{{ user.avatar }}" alt="..."
+                                                                <img src="/static/media/{{ post.id_user.avatar }}"
+                                                                     alt="..."
                                                                      class="avatar-img rounded-circle">
                                                             </a>
                                                         {% else %}
@@ -48,10 +51,10 @@
 
                                                         <!-- Title -->
                                                         <h4 class="mb-1">
-                                                            {% if request.user.first_name %}
-                                                                <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
+                                                            {% if post.id_user.first_name %}
+                                                                <b>{{ post.id_user.first_name }} {{ post.id_user.last_name }}</b>
                                                             {% else %}
-                                                                <b>{{ request.user }}</b>
+                                                                <b>{{ post.id_user.username }}</b>
                                                             {% endif %}
                                                         </h4>
 
@@ -59,8 +62,13 @@
                                                         <p class="card-text small text-muted">
                                                             <span class="fe fe-clock"></span>
                                                             <time datetime="2018-05-24">
-                                                                {{ ell.date_create }}
+                                                                {{ post.date_create }}
                                                             </time>
+                                                            <br>
+                                                        <h3><span
+                                                                class="badge bg-primary-soft">{{ post.group_posts_id }}</span>
+                                                        </h3>
+                                                        <hr>
                                                         </p>
 
                                                     </div>
@@ -119,9 +127,10 @@
                                                         <div class="col-auto">
 
                                                             <!-- Avatar -->
-                                                            {% if user.avatar %}
+
+                                                            {% if comment.from_user_id.avatar %}
                                                                 <a href="#" class="avatar">
-                                                                    <img src="/static/media/{{ user.avatar }}"
+                                                                    <img src="/static/media/{{ comment.from_user_id.avatar }}"
                                                                          alt="..."
                                                                          class="avatar-img rounded-circle">
                                                                 </a>
@@ -144,7 +153,7 @@
 
                                                                         <!-- Title -->
                                                                         <h5 class="comment-title">
-                                                                            {{ request.user }}
+                                                                            <b>{{ comment.from_user_id.first_name }}</b>
                                                                         </h5>
 
                                                                     </div>
@@ -152,7 +161,7 @@
 
                                                                         <!-- Time -->
                                                                         <time class="comment-time">
-                                                                            дата полная тут должна быть
+                                                                            {{ comment.date_create }}
                                                                         </time>
 
                                                                     </div>
@@ -206,10 +215,9 @@
                                                         <button class="btn btn-primary d-block d-md-inline-block"
                                                                 type="submit"
                                                                 value={{ post.id }}
-                                                                name='id_post'>
+                                                                        name='id_post'>
                                                             Отправить
                                                         </button>
-
 
 
                                                     </form>
@@ -242,132 +250,26 @@
                                         <div class="card-header">
                                             <!-- Title -->
                                             <h4 class="card-header-title">
-                                                Ваш прогресс
+                                                Тематика постов:
                                             </h4>
+                                            <hr>
+
                                         </div>
-                                        <!-- List group -->
-                                        <div class="list-group list-group-flush my-n3">
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col">
+                                        <br>
+                                        <!-- Каттегории постов -->
+                                        <div class="row-cols-auto">
 
-                                                        <!-- Title -->
-                                                        <h5 class="mb-0">
-                                                            Вы зарегистрированы
-                                                        </h5>
+                                            <a href="" class="btn btn-secondary d-block center-block">Все посты</a>
 
-                                                    </div>
-                                                    <div class="col-auto">
+                                                <hr>
+                                                {% for category in category_post %}
+                                                    <a href="" class="btn btn-secondary d-block center-block">{{ category.title }}</a>
+                                                    <hr>
+                                                {% endfor %}
 
-                                                        <!-- Time -->
-                                                        <time class="small text-muted" datetime="1988-10-24">
-                                                            10/24/88
-                                                        </time>
 
-                                                    </div>
-                                                </div> <!-- / .row -->
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col">
-
-                                                        <!-- Title -->
-                                                        <h5 class="mb-0">
-                                                            Проёдено заданий
-                                                        </h5>
-
-                                                    </div>
-                                                    <div class="col-auto">
-
-                                                        <!-- Time -->
-                                                        <p class="small text-muted">
-                                                            110
-                                                        </p>
-
-                                                    </div>
-                                                </div> <!-- / .row -->
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col">
-
-                                                        <!-- Title -->
-                                                        <h5 class="mb-0">
-                                                            Написано постов и ответов:
-                                                        </h5>
-
-                                                    </div>
-                                                    <div class="col-auto">
-
-                                                        <!-- Text -->
-                                                        <small class="text-muted">
-                                                            140
-                                                        </small>
-
-                                                    </div>
-                                                </div> <!-- / .row -->
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col">
-
-                                                        <!-- Title -->
-                                                        <h5 class="mb-0">
-                                                            Из них публичных
-                                                        </h5>
-
-                                                    </div>
-                                                    <div class="col-auto">
-
-                                                        <!-- Text -->
-                                                        <small class="text-muted">
-                                                            78
-                                                        </small>
-
-                                                    </div>
-                                                </div> <!-- / .row -->
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col">
-
-                                                        <!-- Title -->
-                                                        <h5 class="mb-0">
-                                                            Лайков у вас:
-                                                        </h5>
-
-                                                    </div>
-                                                    <div class="col-auto">
-
-                                                        <!-- Text -->
-                                                        <small class="text-muted">
-                                                            12 433
-                                                        </small>
-
-                                                    </div>
-                                                </div> <!-- / .row -->
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col">
-
-                                                        <!-- Title -->
-                                                        <h5 class="mb-0">
-                                                            Коментариев у вас:
-                                                        </h5>
-
-                                                    </div>
-                                                    <div class="col-auto">
-
-                                                        <!-- Text -->
-                                                        <small class="text-muted">
-                                                            1 854
-                                                        </small>
-
-                                                    </div>
-                                                </div> <!-- / .row -->
-                                            </div>
                                         </div>
+
 
                                     </div>
                                 </div>
