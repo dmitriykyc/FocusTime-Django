@@ -5,4 +5,5 @@ app_name = 'socnetwapp'
 
 urlpatterns = [
     path('', socnetwapp.index, name='socnetwapp'),
+    path('create_post', socnetwapp.create_post, name='create_post')
 ]

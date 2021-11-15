@@ -1,4 +1,4 @@
-from socnetwapp.models import CommentToThePost, PostToTheFeed
+from socnetwapp.models import CommentToThePost, PostToTheFeed, GroupPosts
 
 
 def create_comment(request, user):
@@ -12,3 +12,20 @@ def create_comment(request, user):
                                               to_the_post_id=to_post)
 
     comment.save()
+
+
+def create_new_post(request, user):
+    if 'media' in request.FILES:
+        form = PostToTheFeed.objects.create(
+            title=request.POST.get('title'),
+            id_user=user,
+            description=request.POST.get('description'),
+            media=request.FILES['media'],
+            group_posts_id=GroupPosts.objects.get(id=request.POST.get('group_posts_id')))
+    else:
+        form = PostToTheFeed.objects.create(
+            title=request.POST.get('title'),
+            id_user=user,
+            description=request.POST.get('description'),
+            group_posts_id=GroupPosts.objects.get(id=request.POST.get('group_posts_id')))
+    form.save()
