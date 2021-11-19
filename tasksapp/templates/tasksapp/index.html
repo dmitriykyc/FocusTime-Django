@@ -10,65 +10,57 @@
         <div class="row">
             <div class="col-12 col-xl-1"></div>
             <div class="col-12 col-xl-10">
-            {% include 'tasksapp/include/inc_menu_tasks.html' %}
+                {% include 'tasksapp/include/inc_menu_tasks.html' %}
                 <br>
                 <div class="container-fluid">
                     <div class="row">
-
-{#                        <hr>#}
                         <!-- CONTENT -->
+                        <p class="text-center">
+                            <button class="btn btn-success" id="load-more"> прошлые посты</button>
+                        </p>
+                        <div class="row load_post"></div>
                         {% for i in done_tasks %}
-
-                            <div class="col-12 col-lg-4">
-
-                                <!-- Card -->
-                                <div class="card">
-                                    <div class="card-body text-center">
-
-                                        <!-- Avatar -->
-                                        <a href="" class="card-avatar avatar avatar-lg mx-auto">
-                                            <img src="{% static 'img/task_icon.png' %}" alt=""
-                                                 class="avatar-img rounded">
-                                        </a>
-
-                                        <!-- Title -->
-                                        <h2 class="card-title">
-                                            <a href="{% url 'tasks:task' i.pk %}">{{ i.title|capfirst }}</a>
-                                        </h2>
-
-                                        <!-- Text -->
-                                        <p class="card-text text-muted">
-                                            {{ i.description }}
-                                        </p>
-
-                                    </div>
-                                    <div class="card-footer card-footer-boxed">
-                                        <div class="row align-items-center">
-
-
-                                            <!-- Button -->
-                                            <div class="col">
-
-                                                <!-- Time -->
-                                                <p class="card-text text-muted">
-                                                    <i class="fe fe-check-circle"></i> Завершено
-                                                </p>
-
-                                            </div>
-
-
-                                            <a href="{% url 'tasks:task' i.pk %}"
-                                               class="btn btn-primary d-block d-md-inline-block lift">
-                                                Посмотреть ответ
-                                            </a>
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
+                            {% if forloop.first %}
+                                <div class="col-12 col-lg-4 task first-task" data-taskid="{{ i.id }}">
+                            {% else %}
+                                <div class="col-12 col-lg-4 task">
+                            {% endif %}
+                        <!-- Card -->
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <!-- Avatar -->
+                                <a href="" class="card-avatar avatar avatar-lg mx-auto">
+                                    <img src="{% static 'img/task_icon.png' %}" alt=""
+                                         class="avatar-img rounded">
+                                </a>
+                                <!-- Title -->
+                                <h2 class="card-title">
+                                    <a href="{% url 'tasks:task' i.pk %}">{{ i.title|capfirst }}</a>
+                                </h2>
+                                <!-- Text -->
+                                <p class="card-text text-muted">
+                                    {{ i.description }}
+                                </p>
                             </div>
+                            <div class="card-footer card-footer-boxed">
+                                <div class="row align-items-center">
+                                    <!-- Button -->
+                                    <div class="col">
+
+                                        <!-- Time -->
+                                        <p class="card-text text-muted">
+                                            <i class="fe fe-check-circle"></i> Завершено
+                                        </p>
+                                    </div>
+                                    <a href="{% url 'tasks:task' i.pk %}"
+                                       class="btn btn-primary d-block d-md-inline-block lift">
+                                        Посмотреть ответ
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
 
 
 
@@ -138,9 +130,72 @@
                         {% endfor %}
 
                         <hr>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock content %}
+
+{% block js-script %}
+    <script>
+        $('#load-more').on('click', function () {
+            let LastTaskId = $('.first-task').attr('data-taskid')
+            let data = {
+                LastTaskId: LastTaskId
+            }
+            $('.task').removeClass("first-task")
+            $('.task').removeAttr("data-taskid")
+            $.ajax({
+                method: "GET",
+                dataType: "json",
+                data: data,
+                url: "{% url 'tasks:load_more_tasks' %}",
+                success: function (data) {
+                    let result = data['data']
+                    $.each(result, function (id, obj) {
+                        let aaa = 1
+
+
+                        $('.load_post').append(
+                            '<div class="col-12 col-lg-4 task">' +
+                                '<div class="card">' +
+                                    '<div class="card-body text-center">' +
+                                        '<a href="" class="card-avatar avatar avatar-lg mx-auto">' +
+                                            '<img src="{% static "img/task_icon.png" %}" alt=""' +
+                                                 'class="avatar-img rounded">' +
+                                        '</a>' +
+                                        '<h2 class="card-title">' +
+                                            '<p>'+ obj["title"] + '</p>' +
+                                        '</h2>' +
+                                        '<p class="card-text text-muted">' +
+                                            obj["description"] +
+                                        '</p>' +
+                                    '</div>' +
+                                    '<div class="card-footer card-footer-boxed">' +
+                                        '<div class="row align-items-center">' +
+                                            '<div class="col">' +
+                                                '<p class="card-text text-muted">' +
+                                                    '<i class="fe fe-check-circle"></i> Завершено' +
+                                                '</p>' +
+                                            '</div>' +
+                                            '<a href="{% url "tasks:task" 1 %}"' +
+                                               'class="btn btn-primary d-block d-md-inline-block lift">' +
+                                                'Посмотреть ответ' +
+                                            '</a>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>'
+                                )
+                                console.log(id, obj)
+                                })
+                                {#console.log(data['data'])#}
+                                }
+                                })
+                                console.log($('.first-task').attr('data-taskid'))
+                                })
+
+    </script>
+
+{% endblock %}

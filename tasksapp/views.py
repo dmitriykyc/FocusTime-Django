@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -21,7 +21,7 @@ def index(request):
     content = {
         "page_title": page_title,
         "last_answer_user": last_answ_and_task["last_answer_user"],
-        "done_tasks": last_answ_and_task["tasks_done"][0:3],
+        "done_tasks": last_answ_and_task["tasks_done"][-2:],
         'tasks_without_answer': last_answ_and_task["tasks_without_answer"],
 
     }
@@ -96,3 +96,25 @@ def edit_answer(request, pk=None):
     return render(request, 'tasksapp/update.html', content)
 
 
+def dynamic_task_load(request):
+    last_post_id = request.GET.get('LastTaskId')
+    # print(last_post_id)
+    more_tasks = TasksModel.objects.filter(is_activ=1).filter(id__lt=last_post_id).order_by("-serial_numb_task").values(
+        "id",
+        "title",
+        "description")[:3]
+    # print(more_tasks)
+    if not more_tasks:
+        return JsonResponse({'data': False})
+
+    data = []
+    for task_ell in more_tasks:
+        obj = {
+            "id": task_ell["id"],
+            "title": task_ell["title"],
+            "description": task_ell["description"]
+        }
+        data.append(obj)
+    data[0]['first_post'] = True
+
+    return JsonResponse({'data': data})

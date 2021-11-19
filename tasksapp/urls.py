@@ -8,5 +8,6 @@ urlpatterns = [
     path('<int:pk>/', tasksapp.task, name='task'),
     path('edit/<int:pk>/', tasksapp.edit_answer, name='edit_answer'),
     path('tasks_done/', tasksapp.tasks_done, name='tasks_done'),
+    path('load_more_tasks/', tasksapp.dynamic_task_load, name='load_more_tasks'),
 
 ]
