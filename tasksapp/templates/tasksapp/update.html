@@ -2,33 +2,11 @@
 {% load static %}
 
 {% block content %}
-    {#    {{ request.user.id }}#}
-    {#    {{ content_task.content|safe }}#}
-    {##}
-    {##}
-    {#    <form method="post" enctype="multipart/form-data">#}
-    {#        <br>#}
-    {#        <br>#}
-    {##}
-    {#        <div class="card-body align-baseline">#}
-    {#            {% csrf_token %}#}
-    {#            {{ form }}#}
-    {##}
-    {#        </div>#}
-    {#        <br>#}
-    {#        <input type="submit" class="btn btn-primary" value="Сохранить изменения" name="answer_edit">#}
-    {##}
-    {#    </form>#}
-    {##}
-    {##}
-    {##}
-    {##}
+    <div class="container">
     <div class="card-body">
 
-        <div class="container-fluid">
             <div class="row">
-                <div class="col-12 col-xl-1"></div>
-                <div class="col-12 col-xl-8">
+                <div class="col-12 col-xl-9">
 
 
                     <!-- Card -->
@@ -95,7 +73,7 @@
 
 
                 </div>
-                <div class="col-12 col-xl-2">
+                <div class="col-12 col-xl-3">
 
                     <!-- Прогресс -->
                     <div class="card">
@@ -154,7 +132,8 @@
                 </div>
 
             </div> <!-- / .row -->
-        </div>
+
+    </div>
     </div>
 
 {% endblock %}

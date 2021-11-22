@@ -27,29 +27,27 @@
 
 {% block menu %}
 
-    <div class="row">
-        <div class="col-12 col-xl-1"></div>
-        <div class="col-12 col-xl-10">
-            <nav class="navbar navbar-light bg-gradient">
-
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        <img src="{% static 'img/Focus_logo.png' %}" alt="" height="30"
-                             class="d-inline-block align-text-top">
-                        Focus Time
-                    </a>
-                    {% include 'mainapp/includes/inc_menu.html' %}
-                </div>
-            </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-light bg-gradient">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <img src="{% static 'img/Focus_logo.png' %}" alt="" height="30"
+                                 class="d-inline-block align-text-top">
+                            Focus Time
+                        </a>
+                        {% include 'mainapp/includes/inc_menu.html' %}
+                    </div>
+                </nav>
+            </div>
         </div>
     </div>
 
-
 {% endblock menu %}
-<!-- CONTENT
-================================================== -->
-{% block content %}
 
+
+{% block content %}
 {% endblock content %}
 
 <!-- JAVASCRIPT -->
