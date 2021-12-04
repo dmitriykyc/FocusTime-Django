@@ -15,17 +15,27 @@ def create_comment(request, user):
 
 
 def create_new_post(request, user):
+    if not request.POST.get('group_posts_id'):
+        group_posts_id = GroupPosts.objects.get(id=5)
+    else:
+        group_posts_id = GroupPosts.objects.get(id=request.POST.get('group_posts_id'))
+
     if 'media' in request.FILES:
         form = PostToTheFeed.objects.create(
             title=request.POST.get('title'),
             id_user=user,
             description=request.POST.get('description'),
             media=request.FILES['media'],
-            group_posts_id=GroupPosts.objects.get(id=request.POST.get('group_posts_id')))
+            group_posts_id=group_posts_id)
     else:
         form = PostToTheFeed.objects.create(
             title=request.POST.get('title'),
             id_user=user,
             description=request.POST.get('description'),
-            group_posts_id=GroupPosts.objects.get(id=request.POST.get('group_posts_id')))
+            group_posts_id=group_posts_id)
     form.save()
+
+
+def del_post(pk):
+    post_to_delete = PostToTheFeed.objects.get(id=pk)
+    post_to_delete.delete()

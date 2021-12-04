@@ -1,47 +1,47 @@
 <div class="container">
 
-<div class="row align-items-center">
+    <div class="row align-items-center mx-4">
 
-    <div class="header-body col mb-3 ms-n3 ms-md-n2">
-        <ul class="nav nav-tabs nav-overflow header-tabs">
-            <li class="nav-item">
-                <a href="{% url 'tasks:tasks_index' %}"
-                   class="nav-link text-nowrap
-                               {% if request.resolver_match.url_name == 'tasks_index' %}
-                                    active disabled
-                               {% endif %}">
-                    Текущие задания
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'tasks:tasks_done' %}" class="nav-link text-nowrap
-                               {% if request.resolver_match.url_name == 'tasks_done' %}
-                                    active disabled
-                               {% endif %} ">
-                    Завершенные задания <span class="badge rounded-pill bg-secondary-soft">{{ done_tasks|length }}</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'blogapp:my_notes_day' %}"
-                   class="nav-link text-nowrap
-                               {% if request.resolver_match.url_name == 'my_notes_day' %}
-                                    active disabled
-                               {% endif %}">
-                    Записи о прошедших днях
+        <div class="header-body col mb-3 ms-n3 ms-md-n2">
+            <ul class="nav nav-tabs nav-overflow header-tabs">
+                <li class="nav-item">
+                    <a href="{% url 'tasks:tasks_index' %}"
+                       class="nav-link text-nowrap
+                                   {% if request.resolver_match.url_name == 'tasks_index' %}
+                                        active disabled
+                                   {% endif %}">
+                        Текущие задания
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'tasks:tasks_done' %}" class="nav-link text-nowrap
+                                   {% if request.resolver_match.url_name == 'tasks_done' %}
+                                        active disabled
+                                   {% endif %} ">
+                        Завершенные задания <span class="badge rounded-pill bg-secondary-soft">{{ done_tasks|length }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'blogapp:my_notes_day' %}"
+                       class="nav-link text-nowrap
+                                   {% if request.resolver_match.url_name == 'my_notes_day' %}
+                                        active disabled
+                                   {% endif %}">
+                        Записи о прошедших днях
 
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-12 col-md-auto ">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-md-auto ">
 
-        <!-- Button -->
-        <a href="{% url 'blog:create_note_day' %}" class="btn btn-primary d-block d-md-inline-block">
-            Написать ежедневную запись
-        </a>
+            <!-- Button -->
+            <a href="{% url 'blog:create_note_day' %}" class="btn btn-primary d-block d-md-inline-block">
+                Написать ежедневную запись
+            </a>
 
-    </div>
+        </div>
 
-</div> <!-- / .row -->
+    </div> <!-- / .row -->
 
 </div>

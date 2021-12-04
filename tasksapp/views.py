@@ -17,12 +17,13 @@ def index(request):
     user = request.user
 
     last_answ_and_task = get_last_answer_user_and_last_task(user=user)
-
+    done_tasks = UserAnswerTasks.objects.filter(user_id=user)
     content = {
         "page_title": page_title,
         "last_answer_user": last_answ_and_task["last_answer_user"],
-        "done_tasks": last_answ_and_task["tasks_done"][-2:],
+        "lasts_done_tasks": last_answ_and_task["tasks_done"][-2:],
         'tasks_without_answer': last_answ_and_task["tasks_without_answer"],
+        'done_tasks': done_tasks
 
     }
 

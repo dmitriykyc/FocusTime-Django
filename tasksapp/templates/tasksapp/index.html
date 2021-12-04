@@ -8,9 +8,9 @@
             {% include 'tasksapp/include/inc_menu_tasks.html' %}
         </div>
         <div class="row my-4">
-            {% for i in done_tasks %}
+            {% for i in lasts_done_tasks %}
 
-                <div class="col-12 col-lg-4">
+                <div class="col-lg-4 col-md-6">
                     <!-- Card -->
                     <div class="card">
                         <div class="card-body text-center">
@@ -51,7 +51,7 @@
 
             {% for i in tasks_without_answer %}
 
-                <div class="col-12 col-lg-4">
+                <div class="col-lg-4 col-md-6">
                     <!-- Card -->
                     <div class="card">
                         <div class="card-body text-center">

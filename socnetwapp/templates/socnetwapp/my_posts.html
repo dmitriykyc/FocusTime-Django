@@ -1,14 +1,13 @@
 {% extends 'mainapp/base.html' %}
-
 {% load static %}
 
 {% block content %}
+
     <div class="container">
         <div class="row">
             {% include 'socnetwapp/include/inc_menu_feed.html' %}
         </div>
-    </div>
-    <div class="container">
+
         <div class="row">
             <div class="col-12 col-lg-9">
                 <!-- Первая карточка -->
@@ -75,7 +74,7 @@
                                                 <a href="{% url 'socnetw:edit_post' post.id %}" class="dropdown-item">
                                                     Изменить
                                                 </a>
-                                                <a href="{% url 'socnetwapp:delete_post' post.id %}" class="dropdown-item">
+                                                <a href="" class="dropdown-item">
                                                     Удалить
                                                 </a>
                                             </div>
@@ -266,4 +265,5 @@
             </div>
         </div>
     </div>
-{% endblock %}
+
+{% endblock content %}
