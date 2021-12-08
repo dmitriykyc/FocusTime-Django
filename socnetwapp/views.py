@@ -26,6 +26,24 @@ def index(request):
     return render(request, "socnetwapp/index.html", context=content)
 
 
+def filter_index(request, pk):
+    user = request.user
+    posts = PostToTheFeed.objects.filter(group_posts_id=pk).order_by("-date_create")
+    category_post = GroupPosts.objects.filter(is_activ=True)
+    form = CreateCommentForm()
+
+    if request.method == 'POST':
+        create_comment(request, user)
+
+    content = {
+        "page_title": 'Новостная лента',
+        "posts": posts,
+        "form": form,
+        "category_post": category_post
+    }
+    return render(request, "socnetwapp/index.html", context=content)
+
+
 def create_post(request):
 
     page_title = 'Создать пост'
@@ -35,7 +53,7 @@ def create_post(request):
         return HttpResponseRedirect(reverse('socnetw:socnetwapp'))
 
     else:
-        form = CreateNewPost(initial={'group_posts_id': 1})
+        form = CreateNewPost(initial={'group_posts_id': 5})
 
 
     content = {

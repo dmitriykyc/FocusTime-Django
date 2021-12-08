@@ -247,11 +247,11 @@
                         <!-- Каттегории постов -->
                         <div class="row-cols-auto">
 
-                            <a href="" class="btn btn-secondary d-block center-block">Все посты</a>
+                            <a href="{% url 'socnetw:socnetwapp' %}" class="btn btn-secondary d-block center-block">Все посты</a>
 
                             <hr>
                             {% for category in category_post %}
-                                <a href=""
+                                <a href="{% url 'socnetw:filter_posts' category.id %}"
                                    class="btn btn-secondary d-block center-block">{{ category.title }}</a>
                                 <hr>
                             {% endfor %}

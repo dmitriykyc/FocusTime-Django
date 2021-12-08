@@ -9,4 +9,5 @@ urlpatterns = [
     path('my_posts', socnetwapp.my_posts, name='my_posts'),
     path('edit_post/<int:pk>', socnetwapp.edit_post, name='edit_post'),
     path('delete_post/<int:pk>', socnetwapp.delete_post, name='delete_post'),
+    path('filter_posts/<int:pk>', socnetwapp.filter_index, name='filter_posts'),
 ]
