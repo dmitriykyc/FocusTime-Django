@@ -17,5 +17,6 @@ urlpatterns = [
     path('tasks/', include("tasksapp.urls", namespace='tasks')),
     path('socnetw/', include("socnetwapp.urls", namespace='socnetw')),
     path('blog/', include("blogapp.urls", namespace='blog')),
+    path('comment/', include("commentapp.urls", namespace='comments')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
