@@ -18,5 +18,6 @@ urlpatterns = [
     path('socnetw/', include("socnetwapp.urls", namespace='socnetw')),
     path('blog/', include("blogapp.urls", namespace='blog')),
     path('comment/', include("commentapp.urls", namespace='comments')),
+    path('wishlist/', include("wishlistapp.urls", namespace='wishlist')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

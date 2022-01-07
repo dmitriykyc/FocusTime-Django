@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'socnetwapp',
     'blogapp',
     'commentapp',
+    'wishlistapp'
 
 ]
 

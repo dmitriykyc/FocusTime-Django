@@ -17620,7 +17620,7 @@ a:focus, button:focus {
     background-color: #f9fbfd;
     border-radius: .5rem;
     display: inline-block;
-    padding: 1rem 1.25rem
+    padding: 0.6rem 0.6rem
 }
 
 .comment-time {

@@ -8,7 +8,7 @@ from socnetwapp.services import create_comment, create_new_post, del_post
 
 
 def index(request):
-
+    '''Страница главная со всеми постами'''
     user = request.user
     posts = PostToTheFeed.objects.all().order_by("-date_create")
     category_post = GroupPosts.objects.filter(is_activ=True)
@@ -27,6 +27,7 @@ def index(request):
 
 
 def filter_index(request, pk):
+    '''Посты отображаемые по фильтру'''
     user = request.user
     posts = PostToTheFeed.objects.filter(group_posts_id=pk).order_by("-date_create")
     category_post = GroupPosts.objects.filter(is_activ=True)
@@ -45,7 +46,7 @@ def filter_index(request, pk):
 
 
 def create_post(request):
-
+    '''Создание поста'''
     page_title = 'Создать пост'
     user = request.user
     if request.method == 'POST':
@@ -54,7 +55,6 @@ def create_post(request):
 
     else:
         form = CreateNewPost(initial={'group_posts_id': 5})
-
 
     content = {
         "page_title": page_title,
@@ -66,7 +66,7 @@ def create_post(request):
 
 
 def my_posts(request):
-
+    '''Отдельная страница только с моими постами'''
     user = request.user
     posts = PostToTheFeed.objects.filter(id_user=user).order_by("-date_create")
 
@@ -79,6 +79,7 @@ def my_posts(request):
 
 
 def edit_post(request, pk):
+    '''Редактирование постов'''
     page_title = 'Редактирование поста'
     user = request.user
     content_post = PostToTheFeed.objects.get(id=pk)
@@ -100,5 +101,6 @@ def edit_post(request, pk):
 
 
 def delete_post(request, pk):
+    '''Удаление поста'''
     del_post(pk)
     return HttpResponseRedirect(reverse('socnetwapp:socnetwapp'))
