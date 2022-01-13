@@ -1,0 +1,68 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-body my-4 mx-4">
+                <div class="row">
+                    {% for wish in wish_list %}
+
+                        <div class="col-2">
+                            <input type="submit" class="btn btn-primary done-wish"
+                                   value="ok" id="{{ wish.id }}">
+                            <span class="fe fe-check" style="font-size: 25px"></span>
+                            <span class="fe fe-edit" style="font-size: 20px"></span>
+                            <span class="fe fe-trash-2" style="font-size: 20px"></span>
+                        </div>
+                        <div class="col-10">
+                            <div class="alert alert-primary wish-box" style="background-color: #3dd5f3"
+                                 id="box{{ wish.id }}">
+                                <h1>{{ wish.title }}</h1>
+                            </div>
+
+                        </div>
+                        {#                        <input id="update_log_button" name="update_log" type="button" value="Update Log"/>#}
+
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js-script %}
+
+    {#    Эта штука зачёркивает текст при нажатии#}
+    {#    <script type="text/javascript">#}
+    {#        var eleClick = function (numb) {#}
+    {#            var ele = document.getElementById("text"+numb);#}
+    {#            ele.style.setProperty("text-decoration", "line-through");#}
+    {#        }#}
+    {#    </script>#}
+
+    <script>
+
+        $('.done-wish').on('click', function () {
+            {#console.log(this)#}
+            wish_id = $(this).attr('id')
+
+            data = {wish_id: wish_id}
+            $.ajax({
+                type: 'GET',
+                url: '{% url "wishlist:wish_done" %}',
+                data: data,
+                success: function () {
+                    $('div[id=box' + wish_id + ']').attr("style", "background-color: green")
+                }
+            })
+        })
+
+    </script>
+
+{% endblock %}
