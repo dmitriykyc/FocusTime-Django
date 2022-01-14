@@ -7,13 +7,24 @@
         <div class="card">
             <div class="card-body my-4 mx-4">
                 <div class="row mb-4">
-                        <a href="#" class="btn btn-primary d-block d-md-inline-block mb-3" onclick="openForm()"> Добавить желание </a>
-                    <input type="text" class="form-control form-to-wish" id="exampleInputEmail1" aria-describedby="emailHelp" style="display: none">
+                    <a href="javascript:void(0);" class="btn btn-info mb-3 click-open-form" onclick="openForm()">
+                        Добавить желание </a>
+                    <form method="post" class="form-to-wish" style="display: none">
+                        {% csrf_token %}
+                        {{ form.title }}
+                                <div class="text-muted my-2 text-center">
+                                    <input class="btn btn-lg w-50 btn-info mb-3" type="submit"
+                                           value="Сохранить"
+                                           name="add_wish_bd">
+                                </div>
+
+                    </form>
+                    <hr>
                 </div>
                 <div class="row">
                     {% for wish in wish_list %}
 
-                        <div class="col-12">
+                        <div class="col-12" id="block{{ wish.id }}">
                             <div class="form-check form-switch">
                                 <input class="form-check-input done-wish" type="checkbox"
                                        id="flexSwitchCheckDefault" name="{{ wish.id }}" {% if wish.is_done %}
@@ -24,7 +35,7 @@
 
                                     <div class="row">
                                         <div class="col-11">
-                                            <p class="mb-0" style="font-size:20px">{{ wish.title }}</p>
+                                            <p class="mb-0" style="font-size:20px">{{ forloop.counter }}. {{ wish.title }}</p>
 
                                             <p class="mb-0" id="date_done_wish_{{ wish.id }}">
                                                 {% if wish.is_done %}
@@ -36,17 +47,17 @@
                                         <div class="col-1">
                                             <!-- Dropdown -->
                                             <div class="dropdown text-end">
-                                                <a href="#" class="dropdown-ellipses dropdown-toggle"
+                                                <a href="javascript:void(0);" class="dropdown-ellipses dropdown-toggle"
                                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                                    aria-expanded="false">
                                                     <i class="fe fe-more-vertical"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-end">
 
-                                                    <a href="#" class="dropdown-item">
+                                                    <a href="javascript:void(0);" class="dropdown-item">
                                                         Изменить
                                                     </a>
-                                                    <a href="#" class="dropdown-item">
+                                                    <a href="javascript:void(0);" class="dropdown-item delete_wish" id="{{ wish.id }}">
                                                         Удалить
                                                     </a>
                                                 </div>
@@ -55,7 +66,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                </label>
                             </div>
                         </div>
 
@@ -65,30 +75,26 @@
             </div>
         </div>
     </div>
-    </div>
+
 
 
 {% endblock %}
 
 {% block js-script %}
     <script>
-        function openForm(){
+        function openForm() {
+            let button_click_open_form = $('.click-open-form')
             let form_to_wish = $('.form-to-wish')
             if (form_to_wish.is(':visible')) {
-                console.log('visible')
+                button_click_open_form.toggleClass('btn-light btn-info')
+                button_click_open_form.html('Добавить желание')
                 form_to_wish.hide()
             } else {
-                console.log('no visible')
+                button_click_open_form.toggleClass('btn-light btn-info')
+                button_click_open_form.html('Свернуть')
                 form_to_wish.show()
-
             }
-
-            {#form_to_wish = $('.form-to-wish').attr('style')['display']#}
-            {#console.log(form_to_wish)#}
-            {##}
-            {#form_to_wish.show()#}
         }
-
 
         $('.done-wish').on('click', function () {
 
@@ -116,6 +122,22 @@
 
                     }
 
+                }
+            })
+        })
+
+        $('.delete_wish').on('click', function () {
+
+            let wish_id_del = $(this).attr('id')
+            let data = {wish_id: wish_id_del}
+            console.log(data)
+            $.ajax({
+                type: 'GET',
+                url: '{% url "wishlistapp:wish_delete" %}',
+                data: data,
+                success: function () {
+                    let wish_id = $('div[id=block' + wish_id_del + ']')
+                    wish_id.hide()
                 }
             })
         })
