@@ -12,13 +12,14 @@
                     <form method="post" class="form-to-wish" style="display: none">
                         {% csrf_token %}
                         {{ form.title }}
-                                <div class="text-muted my-2 text-center">
-                                    <input class="btn btn-lg w-50 btn-info mb-3" type="submit"
-                                           value="Сохранить"
-                                           name="add_wish_bd">
-                                </div>
+                        <div class="text-muted my-2 text-center">
+                            <input class="btn btn-lg w-50 btn-info mb-3" type="submit"
+                                   value="Сохранить"
+                                   name="add_wish_bd">
+                        </div>
 
                     </form>
+
                     <hr>
                 </div>
                 <div class="row">
@@ -35,7 +36,8 @@
 
                                     <div class="row">
                                         <div class="col-11">
-                                            <p class="mb-0" style="font-size:20px">{{ forloop.counter }}. {{ wish.title }}</p>
+                                            <p id="edit_wish_hide{{ wish.id }}" class="mb-0"
+                                               style="font-size:20px">{{ wish.title }}</p>
 
                                             <p class="mb-0" id="date_done_wish_{{ wish.id }}">
                                                 {% if wish.is_done %}
@@ -54,10 +56,12 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-end">
 
-                                                    <a href="javascript:void(0);" class="dropdown-item">
+                                                    <a href="javascript:void(0);" class="dropdown-item"
+                                                       onclick="editWish({{ wish.id }})">
                                                         Изменить
                                                     </a>
-                                                    <a href="javascript:void(0);" class="dropdown-item delete_wish" id="{{ wish.id }}">
+                                                    <a href="javascript:void(0);" class="dropdown-item delete_wish"
+                                                       id="{{ wish.id }}">
                                                         Удалить
                                                     </a>
                                                 </div>
@@ -130,7 +134,6 @@
 
             let wish_id_del = $(this).attr('id')
             let data = {wish_id: wish_id_del}
-            console.log(data)
             $.ajax({
                 type: 'GET',
                 url: '{% url "wishlistapp:wish_delete" %}',
@@ -141,6 +144,50 @@
                 }
             })
         })
+
+
+        function editWish(wish_id) {
+            let edit_wish_hide = $('p[id=edit_wish_hide' + wish_id + ']')
+            let text_wish = edit_wish_hide[0].textContent
+            edit_wish_hide.before(
+                '<div id="new_form_edit' + wish_id + '">' +
+                '<textarea id="new_wish_text' + wish_id + '" name="title" cols="40" rows="3" class="form-control"' +
+                ' placeholder="" required="" id="id_title">' + text_wish + '</textarea>' +
+                '<div class="text-muted my-2 text-center">' +
+                '<input class="btn btn-sm w-50 btn-outline-primary" style="background-color: white"' +
+                ' type="submit" onclick="editWishSave(' + wish_id + ', 2)" ' +
+                'value="Сохранить"' +
+                'name="edit_wish">' +
+                '</div>' +
+                '</div>'
+            )
+            edit_wish_hide.hide()
+
+        }
+
+
+        {#type-request - чтобы понять какую форму чейчас сохранить, новый виш или редактировать старый#}
+        function editWishSave(wish_id, type_request) {
+            {#let cookie = document.cookie#}
+            {#let csrfToken = cookie.substring(cookie.indexOf('=') + 1)#}
+            let text = $('#new_wish_text' + wish_id).serializeArray()
+            let data = {wish_id: wish_id, text: text[0]['value'], csrfmiddlewaretoken: '{{ csrf_token }}', num_form: type_request}
+            $.ajax({
+                type: 'POST',
+                url: '{% url "wishlistapp:wish_edit" %}',
+                data: data,
+                success: function () {
+                    console.log()
+                    $('p[id=edit_wish_hide' + wish_id + ']').show()
+                    $('p[id=edit_wish_hide' + wish_id + ']').html(text[0]['value'])
+                    $('#new_form_edit' + wish_id).hide()
+                }
+            })
+
+
+        }
+
+
 
     </script>
 

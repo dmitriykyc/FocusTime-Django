@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from wishlistapp.models import WishList
-from wishlistapp.services import done_wish, add_wish_bd, delete_wish
+from wishlistapp.services import done_wish, add_wish_bd, delete_wish, edit_wish
 from .forms import CreateWish
 
 
@@ -11,7 +11,8 @@ def index(request):
     form = CreateWish()
 
     if request.method == 'POST':
-        add_wish_bd(user, request)
+        if 'add_wish_bd' in request.POST:
+            add_wish_bd(user, request)
 
     content = {
         'wish_list': wish_list,
@@ -34,5 +35,15 @@ def wish_done(request):
 def wish_delete(request):
     if request.is_ajax():
         delete_wish(request.GET['wish_id'])
+
+    return JsonResponse({}, status=200)
+
+
+def wish_edit(request):
+    title = request.POST['text']
+    if request.is_ajax():
+        if request.method == 'POST' and 'num_form' in request.POST and request.POST['num_form'] == '2':
+            edit_wish(request.POST['wish_id'], title)
+
 
     return JsonResponse({}, status=200)

@@ -21,3 +21,9 @@ def delete_wish(wish_id):
     wish_to_del = WishList.objects.get(id=int(wish_id))
     wish_to_del.delete()
 
+
+def edit_wish(wish_id, text):
+    wish_to_del = WishList.objects.get(id=int(wish_id))
+    wish_to_del.title = text
+    wish_to_del.save()
+

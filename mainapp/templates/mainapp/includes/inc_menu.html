@@ -19,6 +19,10 @@
                        aria-current="page" href="{% url 'index' %}">Главная</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'index_wishlist' %} active {% endif %}"
+                       aria-current="page" href="{% url 'wishlist:index_wishlist' %}">Список желаний</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'socnetwapp' %} active {% endif %}"
                        href="{% url 'socnetw:socnetwapp' %}">Лента</a>
                 </li>
