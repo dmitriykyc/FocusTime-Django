@@ -12,14 +12,13 @@ class UserAnswerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['answer'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Ваши записи'
+            'data-quill': '{"placeholder": "Quill WYSIWYG"}'
         })
         self.fields['is_public'].widget.attrs.update({
             'class': 'form-check-input'
         })
         self.fields['media'].widget.attrs.update({
-            'label': '11111'
+            'class': 'form-file'
         })
 
 
