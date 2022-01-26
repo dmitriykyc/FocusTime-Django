@@ -54,7 +54,6 @@ def task(request, pk=None):
 
     # Проверяем наличие ответа на это задание
     checking = checking_for_responce(request, pk, user)
-
     # Если мы получачем ответ на задание:
     if request.POST.get('answer_sent') and pk:
         create_answer_for_user(request, pk, user)

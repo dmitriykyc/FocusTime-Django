@@ -24,7 +24,7 @@ def index(request):
 
 
 def wish_done(request):
-    if request.is_ajax():
+    if request.GET:
         done_wish(request.GET['wish_id'])
 
         # print()

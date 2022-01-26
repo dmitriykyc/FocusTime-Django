@@ -109,24 +109,23 @@
                 url: '{% url "wishlist:wish_done" %}',
                 data: data,
                 success: function () {
+                    console.log('wwww')
                     let box_color = $('div[id=box' + wish_id + ']')
                     let date_done_wish = $('p[id=date_done_wish_' + wish_id + ']')
                     if (box_color.hasClass('alert-info')) {
                         box_color.attr("class", "alert alert-light")
                         date_done_wish.hide()
                     } else {
-
                         box_color.attr("class", "alert alert-info")
                         console.log()
                         date_done_wish.show()
                         let dt = new Date()
                         let now_date = dt.getDay() + ' ' + dt.getMonth() + ' ' + dt.getFullYear()
                         date_done_wish.html('<p class="mb-0">Выполнено!</p>')
-
-
                     }
 
                 }
+
             })
         })
 

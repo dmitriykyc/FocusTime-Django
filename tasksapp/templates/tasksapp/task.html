@@ -16,7 +16,7 @@
 
                                     <!-- Avatar -->
 
-                                    <img src="{% static 'img/icon.png' %}" alt="..."
+                                    <img src="{% static 'img/icon_task.png' %}" alt="..."
                                          class="avatar">
 
 
@@ -51,36 +51,83 @@
                         <!-- Ответ -->
                         {% if type_form == 1 %}
                             <br>
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <h1>Ваш ответ:</h1>
+                            <div>
+                                <div class="card card-sm mb-0">
+                                    <div class="card-body">
 
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">{{ form.answer|linebreaks }}</p>
+                                        <!-- Text -->
+                                        <div class="row">
+                                            <h2><u>Ваш ответ:</u></h2>
+                                        </div>
+                                        <div class="row text-center">
 
-                                    {% if form.media %}
+                                            {% if form.media %}
+                                                <img src="{{ form.media.url }}" alt="..."
+                                                     class="" style="width: 200px">
+                                            {% endif %}
+                                        </div>
+                                        <p>
+                                            {{ form.answer|linebreaks }}
+                                        </p>
 
-                                        <img src="{{ form.media.url }}" alt="..."
-                                             class=w-50 text-center">
+                                        <!-- Footer -->
+                                        <div class="row align-items-center">
+                                            <div class="col">
 
-                                    {% endif %}
-                                </div>
-                                <div class="card-footer text-muted">
-                                    Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}
+                                                <!-- Time -->
+                                                <p class="card-text small text-muted">
+                                                    <i class="fe fe-clock"></i> Создан: {{ form.date_update }}
+                                                </p>
+
+                                            </div>
+                                            <div class="col-auto">
+
+                                                <!-- Avatar group -->
+                                                <div class="avatar-group">
+                                                    <a href="{% url 'tasksapp:edit_answer' pk %}"
+                                                       class="btn btn-primary btn-sm"> Изменить</a>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- / .row -->
+                                    </div>
                                 </div>
                             </div>
+                            {#                            <div class="card text-center">#}
+                            {#                                <div class="card-header">#}
+                            {#                                    <h1>Ваш ответ:</h1>#}
+                            {##}
+                            {#                                </div>#}
+                            {#                                <div class="card-body">#}
+                            {#                                    <p class="card-text">{{ form.answer|linebreaks }}</p>#}
+                            {##}
+                            {#                                    {% if form.media %}#}
+                            {##}
+                            {#                                        <img src="{{ form.media.url }}" alt="..."#}
+                            {#                                             class=w-50 text-center">#}
+                            {##}
+                            {#                                    {% endif %}#}
+                            {#                                </div>#}
+                            {#                                <div class="card-footer text-muted">#}
+                            {#                                    Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}#}
+                            {#                                </div>#}
+                            {#                            </div>#}
                             <div><br><br></div>
-                            <a href="{% url 'tasksapp:edit_answer' pk %}" class="btn btn-primary"> Изменить</a>
+
                         {% else %}
                             <br>
                             <br>
 
                             <form class="" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <div data-quill='{"placeholder": "Quill WYSIWYG"}'>{{ form.answer }}</div>
+                                {{ form.answer }} <br>
+
+                                <h3>Прикрепить фото к ответу:</h3>
                                 {{ form.media }}
+
                                 <br>
+                                <br>
+
 
                                 <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">
                             </form>
@@ -118,7 +165,7 @@
 
                                             <!-- Avatar -->
 
-                                            <img class="avatar" src="{% static 'img/icon.png' %}" alt="..."
+                                            <img class="avatar" src="{% static 'img/icon_task.png' %}" alt="..."
                                                  class="avatar-img rounded">
 
 
@@ -157,7 +204,10 @@
 
 {% block js-script %}
     <script>
-
+        $('.ql-editor').on('click', function () {
+            var hhh = $('.ql-editor').html()
+            console.log(hhh)
+        })
 
     </script>
 {% endblock %}
