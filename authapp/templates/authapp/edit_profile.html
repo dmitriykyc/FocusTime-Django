@@ -22,10 +22,21 @@
                                     <div class="col-auto">
 
                                         <!-- Avatar -->
-                                        <div class="avatar avatar-xxl header-avatar-top">
-                                            <img src="{% static 'img/task_icon.png' %}" alt="..."
-                                                 class="avatar-img rounded-circle border border-4 border-body">
-                                        </div>
+
+
+                                        {% if user.avatar %}
+                                            <a href="#" class="avatar">
+                                                <img src="/static/media/{{ user.avatar }}"
+                                                     alt="..."
+                                                     class="avatar-img rounded-circle">
+                                            </a>
+                                        {% else %}
+                                            <div class="avatar avatar-xxl header-avatar-top">
+                                                <img src="/static/media/avatars/user-logo.png" alt="..."
+                                                     class="avatar-img rounded-circle border border-4 border-body">
+                                            </div>
+                                        {% endif %}
+
 
                                     </div>
                                     <div class="col mt-5">
@@ -35,17 +46,23 @@
                                             Ваш профиль:
                                         </h4>
 
-                                        <!-- Title -->
-                                        <h1 class="header-title">
-                                            Имя Пользователя
-                                        </h1>
+                                        <!-- Title имя профиля -->
+                                        {% if user.first_name or user.last_name %}
+                                            <h1 class="header-title">
+                                                {{ user.first_name }} {{ user.last_name }}
+                                            </h1>
+                                        {% else %}
+                                            <h1 class="header-title">
+                                                {{ user.username }}
+                                            </h1>
+                                        {% endif %}
 
                                     </div>
                                     <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
 
-{#                                        <!-- Button -->#}
-{#                                        <input type="submit" class="btn btn-primary d-block d-md-inline-block lift"#}
-{#                                                           value="Сохранить изменения" name="save_form">#}
+                                        {#                                        <!-- Button -->#}
+                                        {#                                        <input type="submit" class="btn btn-primary d-block d-md-inline-block lift"#}
+                                        {#                                                           value="Сохранить изменения" name="save_form">#}
 
                                     </div>
                                 </div> <!-- / .row -->
@@ -66,15 +83,15 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="profile-projects.html" class="nav-link">
-                                                    Мои записи в блоге
+                                                <a href="#" class="nav-link">
+                                                    Мои записи в блоге(no_activ)
                                                 </a>
                                             </li>
                                         </ul>
 
                                     </div>
                                 </div>
-                            </div> <!-- / .header-body -->
+                            </div>
 
                         </div>
                     </div>
@@ -104,7 +121,7 @@
                                                         {% csrf_token %}
                                                         {{ form.as_p }}
                                                         <input type="submit" class="btn btn-primary"
-                                                           value="Сохранить изменения">
+                                                               value="Сохранить изменения">
                                                     </form>
                                                     <br>
 

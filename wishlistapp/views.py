@@ -6,6 +6,7 @@ from .forms import CreateWish
 
 
 def index(request):
+    '''Страница со списками целей'''
     user = request.user
     wish_list = WishList.objects.filter(user=user)
     form = CreateWish()
@@ -24,15 +25,15 @@ def index(request):
 
 
 def wish_done(request):
+    ''' Выполнение цели '''
     if request.GET:
         done_wish(request.GET['wish_id'])
-
-        # print()
 
     return JsonResponse({"name": 'Ok'}, status=200)
 
 
 def wish_delete(request):
+    ''' Удаление цели '''
     if request.is_ajax():
         delete_wish(request.GET['wish_id'])
 
@@ -40,6 +41,7 @@ def wish_delete(request):
 
 
 def wish_edit(request):
+    ''' Редактирование цели '''
     title = request.POST['text']
     if request.is_ajax():
         if request.method == 'POST' and 'num_form' in request.POST and request.POST['num_form'] == '2':

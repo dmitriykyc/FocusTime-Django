@@ -24,10 +24,18 @@
                                         <div class="col-auto">
 
                                             <!-- Avatar -->
-                                            <a href="#!" class="avatar">
-                                                <img src="/static/media/{{ user.avatar }}" alt="..."
-                                                     class="avatar-img rounded-circle">
-                                            </a>
+                                            {% if post.id_user.avatar %}
+                                                <a href="#" class="avatar">
+                                                    <img src="/static/media/{{ post.id_user.avatar }}"
+                                                         alt="..."
+                                                         class="avatar-img rounded-circle">
+                                                </a>
+                                            {% else %}
+                                                <a href="#" class="avatar">
+                                                    <img src="/static/media/avatars/user-logo.png" alt="..."
+                                                         class="avatar-img rounded-circle">
+                                                </a>
+                                            {% endif %}
 
                                         </div>
                                         <div class="col ms-n2">

@@ -17,3 +17,6 @@ class Comments(models.Model):
     text = models.TextField('Текст комментария')
     date_create = models.DateTimeField('Дата и время создания', auto_now_add=True)
     date_update = models.DateTimeField('Дата и время изменения', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Коментарии'

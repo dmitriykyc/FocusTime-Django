@@ -9,6 +9,7 @@ from authapp.models import TimeFocusUsers
 
 
 def register(request):
+    '''Регистрация пользователя'''
     page_title = 'Регистрация'
     form = UserRegistrationForm()
 
@@ -27,6 +28,7 @@ def register(request):
 
 
 def login(request):
+    ''' Вход в систему '''
     page_title = 'Вход в систему'
     form = UserLoginForm()
     if request.POST.get('login'):
@@ -47,11 +49,13 @@ def login(request):
 
 
 def logout(request):
+    ''' Выход из системы '''
     auth.logout(request)
     return redirect('index')
 
 
 def profile(request):
+    '''Страница профиля'''
     page_title = "Ваш профиль"
     user = TimeFocusUsers.objects.get(id=request.user.id)
 
@@ -62,22 +66,25 @@ def profile(request):
 
     return render(request, 'authapp/profile.html', content)
 
+
 def edit_profile(request):
+    ''' Редактирование профиля '''
     page_title = 'Редактирование профиля'
-    this_instance = TimeFocusUsers.objects.get(id=request.user.id)
+    user = request.user
+    this_instance = TimeFocusUsers.objects.get(id=user.id)
 
     if request.method == 'POST':
         form = UserEditForm(request.POST, request.FILES, instance=this_instance)
         if form.is_valid():
             form.save()
-            # return render(request, 'authapp/profile.html')
             return HttpResponseRedirect(reverse('authapp:profile'))
     else:
         form = UserEditForm(instance=this_instance)
 
     content = {
         'form': form,
-        'page_title': page_title
+        'page_title': page_title,
+        'user': user
     }
 
     return render(request, 'authapp/edit_profile.html', context=content)

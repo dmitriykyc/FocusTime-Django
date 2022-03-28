@@ -9,9 +9,13 @@ class GroupPosts(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    class Meta:
+        verbose_name = 'Группы постов'
+
 
 class PostToTheFeed(models.Model):
-    id_user = models.ForeignKey(TimeFocusUsers, verbose_name='Пользователь', related_name='user_created_post', on_delete=models.CASCADE)
+    id_user = models.ForeignKey(TimeFocusUsers, verbose_name='Пользователь', related_name='user_created_post',
+                                on_delete=models.CASCADE)
     title = models.CharField('Заголовок', max_length=200, blank=True, null=True)
     description = models.TextField('Текст поста')
     date_create = models.DateTimeField('Дата и время создания', auto_now_add=True)
@@ -19,6 +23,12 @@ class PostToTheFeed(models.Model):
     media = models.ImageField('Фото к посту', blank=True, null=True, upload_to='post_to_the_feed/')
     group_posts_id = models.ForeignKey(GroupPosts, verbose_name='Тематика поста', on_delete=models.SET_DEFAULT,
                                        blank=True, null=True, default=None)
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name = 'Посты в ленте'
 
 
 class CommentToThePost(models.Model):
@@ -31,6 +41,9 @@ class CommentToThePost(models.Model):
     text = models.TextField('Текст комментария')
     date_create = models.DateTimeField('Дата и время создания', auto_now_add=True)
     date_update = models.DateTimeField('Дата и время изменения', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Коментарии к постам'
 
 
 class LikesToThePost(models.Model):

@@ -12,7 +12,6 @@ from .services import get_last_answer_user_and_last_task, checking_for_responce,
 
 def index(request):
     """Данные для главной страницы со всеми заданиями"""
-
     page_title = 'План обучения'
     user = request.user
 
@@ -24,7 +23,6 @@ def index(request):
         "lasts_done_tasks": last_answ_and_task["tasks_done"][-2:],
         'tasks_without_answer': last_answ_and_task["tasks_without_answer"],
         'done_tasks': done_tasks
-
     }
 
     return render(request, 'tasksapp/index.html', content)
@@ -51,6 +49,7 @@ def task(request, pk=None):
     page_title = content_task.title
     user = request.user
     progress_bar = get_last_answer_user_and_last_task(user)['tasks_done']  # С права у нас прогресс бар по заданиям
+    progress_bar.reverse()
 
     # Проверяем наличие ответа на это задание
     checking = checking_for_responce(request, pk, user)
@@ -90,7 +89,6 @@ def edit_answer(request, pk=None):
         "content_task": content_task,
         'form': form,
         'answer': answer_if_exist
-
     }
 
     return render(request, 'tasksapp/update.html', content)

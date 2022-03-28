@@ -16,7 +16,7 @@
 
                                     <!-- Avatar -->
 
-                                    <img src="{% static 'img/icon_task.png' %}" alt="..."
+                                    <img src="{% static 'img/task_icon2.png' %}" alt="..."
                                          class="avatar">
 
 
@@ -31,8 +31,14 @@
                                     <!-- Time -->
                                     <p class="card-text small text-muted">
                                         <span class="fe fe-clock"></span>
-                                        <time datetime="2018-05-24">Вы приступили к заданию в 21:17
+                                        {% if form.date_update %}
+                                            <time datetime="2018-05-24">Задание выполнено {{ form.date_update|date:"d.m.y H:m" }}
                                             <br> {{ content_task.description }}</time>
+                                        {% else %}
+                                            <time datetime="2018-05-24">Вы приступили к заданию {% now "d.m.y H:m " %}
+                                            <br> {{ content_task.description }}</time>
+                                        {% endif %}
+
                                     </p>
 
                                 </div>
@@ -93,25 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {#                            <div class="card text-center">#}
-                            {#                                <div class="card-header">#}
-                            {#                                    <h1>Ваш ответ:</h1>#}
-                            {##}
-                            {#                                </div>#}
-                            {#                                <div class="card-body">#}
-                            {#                                    <p class="card-text">{{ form.answer|linebreaks }}</p>#}
-                            {##}
-                            {#                                    {% if form.media %}#}
-                            {##}
-                            {#                                        <img src="{{ form.media.url }}" alt="..."#}
-                            {#                                             class=w-50 text-center">#}
-                            {##}
-                            {#                                    {% endif %}#}
-                            {#                                </div>#}
-                            {#                                <div class="card-footer text-muted">#}
-                            {#                                    Ответ создан: {{ form.date_create }}<br>Отредактирован: {{ form.date_update }}#}
-                            {#                                </div>#}
-                            {#                            </div>#}
+
                             <div><br><br></div>
 
                         {% else %}
@@ -149,9 +137,6 @@
                             Ранее пройдено:
                         </h4>
 
-                        {#                                                        <!-- Ссылка справа, не знаю оставлять ли, слишком большое -->#}
-                        {#                                                        <a href="project-overview.html" class="small">вернуться<br>к заданиям</a>#}
-
                     </div>
                     <div class="card-body">
 
@@ -165,7 +150,7 @@
 
                                             <!-- Avatar -->
 
-                                            <img class="avatar" src="{% static 'img/icon_task.png' %}" alt="..."
+                                            <img class="avatar" src="{% static 'img/task_icon2.png' %}" alt="..."
                                                  class="avatar-img rounded">
 
 
@@ -179,8 +164,11 @@
 
                                             <!-- Time -->
                                             <p class="card-text small text-muted">
-                                                <time datetime="2018-05-24"></time>
-                                                <a>{{ i.date_update }}</a>
+                                                <time datetime=""></time>
+                                                <a> {% for answ in i.answer.all %}
+                                                    {{ answ.date_create|date:'d M Y H:m' }}
+                                                {% endfor %}
+                                                </a>
                                             </p>
 
                                         </div>

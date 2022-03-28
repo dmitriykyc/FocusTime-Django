@@ -12,3 +12,6 @@ class TimeFocusUsers(AbstractUser):
     city = models.CharField('Город', max_length=100, blank=True)
     date_create = models.DateField('Дата создания профиля', auto_now_add=True)
 
+    def __str__(self):
+        return str(self.username)
+

@@ -12,3 +12,6 @@ class WishList(models.Model):
 
     def __str__(self):
         return f'Название: {self.title}'
+
+    class Meta:
+        verbose_name = 'Список желаний'

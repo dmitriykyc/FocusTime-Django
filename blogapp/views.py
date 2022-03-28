@@ -34,7 +34,6 @@ def create_note_day(request):
         form = CreateNotesDay()
 
     content = {
-
         'page_title': 'Создать запись',
         'form': form,
         'user': user

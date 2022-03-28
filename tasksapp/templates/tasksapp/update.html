@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="container">
-    <div class="card-body">
+        <div class="card-body">
 
             <div class="row">
                 <div class="col-12 col-xl-9">
@@ -59,11 +59,6 @@
                                 {% csrf_token %}
                                 {{ form.as_p }}
                                 <br>
-
-{#                                <img src="/static/media/{{ answer.media }}" alt="..."#}
-{#                                     class="avatar-img rounded">#}
-
-
                                 <input type="submit" class="btn btn-primary" value="Отправить" name="answer_edit">
                             </form>
 
@@ -133,7 +128,15 @@
 
             </div> <!-- / .row -->
 
-    </div>
+        </div>
     </div>
 
 {% endblock %}
+
+{% block js-script %}
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+{% endblock js-script %}

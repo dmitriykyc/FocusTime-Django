@@ -18,17 +18,18 @@
                     <a class="nav-link {% if request.resolver_match.url_name == 'index' %} active {% endif %}"
                        aria-current="page" href="{% url 'index' %}">Главная</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'index_wishlist' %} active {% endif %}"
-                       aria-current="page" href="{% url 'wishlist:index_wishlist' %}">Список желаний</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'socnetwapp' %} active {% endif %}"
-                       href="{% url 'socnetw:socnetwapp' %}">Лента</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Тарифы</a>
-                </li>
+
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index_wishlist' %} active {% endif %}"
+                           aria-current="page" href="{% url 'wishlist:index_wishlist' %}">Список целей</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'socnetwapp' %} active {% endif %}"
+                           href="{% url 'socnetw:socnetwapp' %}">Лента</a>
+                    </li>
+                {% endif %}
+
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'profile' %} active {% endif %}"
@@ -41,12 +42,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "authapp:logout" %}">Выйти</a>
                     </li>
-
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'authapp:login' %}">Вход</a>
                     </li>
                 {% endif %}
+
             </ul>
         </div>
     </div>

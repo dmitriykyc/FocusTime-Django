@@ -101,106 +101,6 @@
                     <!-- Divider -->
                     <hr>
 
-{#                                    <!-- Комментарии пока спрячем, может потом вставлю обратно -->#}
-{#                                    <div class="comment mb-3">#}
-{#                                        <div class="row">#}
-{#                                            <div class="col-auto">#}
-{##}
-{#                                                <!-- Avatar -->#}
-{#                                                {% if user.avatar %}#}
-{#                                                    <a href="#" class="avatar">#}
-{#                                                        <img src="/static/media/{{ user.avatar }}" alt="..."#}
-{#                                                             class="avatar-img rounded-circle">#}
-{#                                                    </a>#}
-{#                                                {% else %}#}
-{#                                                <a href="#" class="avatar">#}
-{#                                                    <img src="/static/media/avatars/user-logo.png" alt="..."#}
-{#                                                         class="avatar-img rounded-circle">#}
-{#                                                </a>#}
-{#                                                {% endif %}#}
-{##}
-{#                                            </div>#}
-{#                                            <div class="col ms-n2">#}
-{##}
-{#                                                <!-- Body -->#}
-{#                                                <div class="comment-body">#}
-{##}
-{#                                                    <div class="row">#}
-{#                                                        <div class="col">#}
-{##}
-{#                                                            <!-- Title -->#}
-{#                                                            <h5 class="comment-title">#}
-{#                                                                {{ request.user }}#}
-{#                                                            </h5>#}
-{##}
-{#                                                        </div>#}
-{#                                                        <div class="col-auto">#}
-{##}
-{#                                                            <!-- Time -->#}
-{#                                                            <time class="comment-time">#}
-{#                                                                дата полная тут должна быть#}
-{#                                                            </time>#}
-{##}
-{#                                                        </div>#}
-{#                                                    </div> <!-- / .row -->#}
-{##}
-{#                                                    <!-- Text -->#}
-{#                                                    <p class="comment-text">#}
-{#                                                        Тут если есть коменты уже от самого к себе#}
-{#                                                    </p>#}
-{##}
-{#                                                </div>#}
-{##}
-{#                                            </div>#}
-{#                                        </div> <!-- / .row -->#}
-{#                                    </div>#}
-{##}
-{##}
-{#                                    <!-- Divider -->#}
-{#                                    <hr>#}
-{##}
-{#                                    <!-- Form -->#}
-{#                                    <div class="row">#}
-{#                                        <div class="col-auto">#}
-{##}
-{#                                            <!-- Avatar -->#}
-{#                                            {% if user.avatar %}#}
-{#                                                    <a href="#" class="avatar">#}
-{#                                                        <img src="/static/media/{{ user.avatar }}" alt="..."#}
-{#                                                             class="avatar-img rounded-circle">#}
-{#                                                    </a>#}
-{#                                                {% else %}#}
-{#                                                <a href="#" class="avatar">#}
-{#                                                    <img src="/static/media/avatars/user-logo.png" alt="..."#}
-{#                                                         class="avatar-img rounded-circle">#}
-{#                                                </a>#}
-{#                                                {% endif %}#}
-{##}
-{#                                        </div>#}
-{#                                        <div class="col ms-n2">#}
-{##}
-{#                                            <!-- Input -->#}
-{#                                            <form class="mt-1">#}
-{#                                                <label class="visually-hidden">????Leave a comment...</label>#}
-{#                                                <textarea class="form-control form-control-flush" data-autosize#}
-{#                                                          rows="1"#}
-{#                                                          placeholder="Комментарий увидите только вы"></textarea>#}
-{#                                            </form>#}
-{##}
-{#                                        </div>#}
-{#                                        <div class="col-auto align-self-end">#}
-{##}
-{#                                            <!-- Кнопка отправить, переделать её -->#}
-{#                                            <div class="text-muted mb-2">#}
-{#                                                <a href="#!" class="btn btn-primary d-block d-md-inline-block">#}
-{#                                                    Отправить#}
-{#                                                </a>#}
-{##}
-{#                                            </div>#}
-{##}
-{#                                        </div>#}
-{#                                    </div> <!-- / .row -->#}
-
                 </div>
             </div>
             {% endfor %}
@@ -213,7 +113,7 @@
                     <div class="card-header">
                         <!-- Title -->
                         <h4 class="card-header-title">
-                            Ваш прогресс
+                            Ваш прогресс <br> (пока тут фейк данные)
                         </h4>
                     </div>
                     <!-- List group -->

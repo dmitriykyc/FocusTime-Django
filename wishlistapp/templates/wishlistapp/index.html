@@ -7,8 +7,9 @@
         <div class="card">
             <div class="card-body my-4 mx-4">
                 <div class="row mb-4">
+                    {# void(0) - при удалении строки, js не скролит страницу вверх#}
                     <a href="javascript:void(0);" class="btn btn-info mb-3 click-open-form" onclick="openForm()">
-                        Добавить желание </a>
+                        Добавить цель </a>
                     <form method="post" class="form-to-wish" style="display: none">
                         {% csrf_token %}
                         {{ form.title }}
@@ -91,7 +92,7 @@
             let form_to_wish = $('.form-to-wish')
             if (form_to_wish.is(':visible')) {
                 button_click_open_form.toggleClass('btn-light btn-info')
-                button_click_open_form.html('Добавить желание')
+                button_click_open_form.html('Добавить цель')
                 form_to_wish.hide()
             } else {
                 button_click_open_form.toggleClass('btn-light btn-info')
@@ -166,11 +167,17 @@
 
 
         {#type-request - чтобы понять какую форму чейчас сохранить, новый виш или редактировать старый#}
+
         function editWishSave(wish_id, type_request) {
             {#let cookie = document.cookie#}
             {#let csrfToken = cookie.substring(cookie.indexOf('=') + 1)#}
             let text = $('#new_wish_text' + wish_id).serializeArray()
-            let data = {wish_id: wish_id, text: text[0]['value'], csrfmiddlewaretoken: '{{ csrf_token }}', num_form: type_request}
+            let data = {
+                wish_id: wish_id,
+                text: text[0]['value'],
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                num_form: type_request
+            }
             $.ajax({
                 type: 'POST',
                 url: '{% url "wishlistapp:wish_edit" %}',
@@ -185,7 +192,6 @@
 
 
         }
-
 
 
     </script>

@@ -19,10 +19,18 @@
                                     <div class="col-auto">
 
                                         <!-- Avatar -->
-                                        <div class="avatar avatar-xxl header-avatar-top">
-                                            <img src="/static/media/{{ user.avatar }}" alt="..."
-                                                 class="avatar-img rounded-circle border border-4 border-body">
-                                        </div>
+                                        {% if user.avatar %}
+                                            <a href="#" class="avatar">
+                                                <img src="/static/media/{{ user.avatar }}"
+                                                     alt="..."
+                                                     class="avatar-img rounded-circle">
+                                            </a>
+                                        {% else %}
+                                            <div class="avatar avatar-xxl header-avatar-top">
+                                                <img src="/static/media/avatars/user-logo.png" alt="..."
+                                                     class="avatar-img rounded-circle border border-4 border-body">
+                                            </div>
+                                        {% endif %}
 
                                     </div>
                                     <div class="col mt-4">
@@ -32,19 +40,26 @@
                                             Ваш профиль:
                                         </h4>
 
-                                        <!-- Title -->
-                                        <h1 class="header-title">
-                                            {{ user.first_name }} {{ user.last_name }}
-                                        </h1>
+                                        <!-- Title Имя профиля -->
+                                        {% if user.first_name or user.last_name %}
+                                            <h1 class="header-title">
+                                                {{ user.first_name }} {{ user.last_name }}
+                                            </h1>
+                                        {% else %}
+                                            <h1 class="header-title">
+                                                {{ user.username }}
+                                            </h1>
+                                        {% endif %}
 
                                     </div>
                                     <div class="col-12 col-sm-3 mt-5">
                                         <!-- Button -->
-                                        <a href="{% url 'auth:edit_form' %}" class="btn btn-primary" style="width: 100%">
+                                        <a href="{% url 'auth:edit_form' %}" class="btn btn-primary"
+                                           style="width: 100%">
                                             Изменить
                                         </a>
                                     </div>
-                                    
+
                                 </div> <!-- / .row -->
                                 <br>
                                 <div class="row align-items-center">
@@ -63,8 +78,8 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="profile-projects.html" class="nav-link">
-                                                    Мои записи в блоге
+                                                <a href="#" class="nav-link">
+                                                    Мои записи в блоге(no_activ)
                                                 </a>
                                             </li>
                                         </ul>
@@ -231,7 +246,7 @@
                                         <div class="card-header">
                                             <!-- Title -->
                                             <h4 class="card-header-title">
-                                                Ваш прогресс
+                                                Ваш прогресс <br> (пока тут фейк данные)
                                             </h4>
                                         </div>
                                         <!-- List group -->
@@ -362,24 +377,24 @@
                                 </div>
 
                                 <!-- Третья карточка -->
-{#                                <div class="card">#}
-{#                                    <div class="card-header">#}
-{##}
-{#                                        <!-- Title -->#}
-{#                                        <h4 class="card-header-title">#}
-{#                                            Второй блок#}
-{#                                        </h4>#}
-{##}
-{#                                    </div>#}
-{#                                    <div class="card-body">#}
-{##}
-{#                                        <!-- Chart -->#}
-{#                                        <div class="chart chart-sm">#}
-{#                                            <canvas id="weeklyHoursChart" class="chart-canvas"></canvas>#}
-{#                                        </div>#}
-{##}
-{#                                    </div>#}
-{#                                </div>#}
+                                {#                                <div class="card">#}
+                                {#                                    <div class="card-header">#}
+                                {##}
+                                {#                                        <!-- Title -->#}
+                                {#                                        <h4 class="card-header-title">#}
+                                {#                                            Второй блок#}
+                                {#                                        </h4>#}
+                                {##}
+                                {#                                    </div>#}
+                                {#                                    <div class="card-body">#}
+                                {##}
+                                {#                                        <!-- Chart -->#}
+                                {#                                        <div class="chart chart-sm">#}
+                                {#                                            <canvas id="weeklyHoursChart" class="chart-canvas"></canvas>#}
+                                {#                                        </div>#}
+                                {##}
+                                {#                                    </div>#}
+                                {#                                </div>#}
 
                             </div>
                         </div> <!-- / .row -->

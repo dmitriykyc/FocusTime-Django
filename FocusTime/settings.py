@@ -149,6 +149,8 @@ DIRECTORY = ''
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 TINYMCE_DEFAULT_CONFIG = {
     "relative_urls": False,
     "remove_script_host": False,

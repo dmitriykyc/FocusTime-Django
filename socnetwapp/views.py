@@ -54,7 +54,7 @@ def create_post(request):
         return HttpResponseRedirect(reverse('socnetw:socnetwapp'))
 
     else:
-        form = CreateNewPost(initial={'group_posts_id': 5})
+        form = CreateNewPost(initial={'group_posts_id': 1})
 
     content = {
         "page_title": page_title,
