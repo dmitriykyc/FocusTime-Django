@@ -1,0 +1,40 @@
+
+
+{{ comments }}
+<br><br>
+{% for i in comments %}
+    {% if i.parent_comment == None %}
+        <h4>Коммент от: {{ i.user }}<br> Текст: {{ i.text }}</h4>
+        {% for answer_comment in comments %}
+
+            {% if answer_comment.parent_comment.id == i.id %}
+                <h3>
+                    _____От: {{ answer_comment.user }}<br>_____Для: {{ answer_comment.parent_user }}<br>_____Текст: {{ answer_comment.text }}
+                </h3>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
+
+    {#    {% for coment_parent in i.parent_comment.all %}#}
+    {##}
+    {#    {% endfor %}#}
+
+    {#    {{ if  }}#}
+
+
+
+
+
+
+
+
+    {#    {% if i.parent_comment %}#}
+    {#        <h1>________От: {{ i.user }}<br>________Для: {{ i.parent_user }} {{ i.text }}<br> ****************************</h1>#}
+    {#    {% else %}#}
+    {#        <h1>От: {{ i.user }}<br>{{ i.text }}</h1>#}
+    {#    {% endif %}#}
+
+    <br>
+{% endfor %}

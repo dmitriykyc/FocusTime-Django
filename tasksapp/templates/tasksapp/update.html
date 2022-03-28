@@ -1,0 +1,142 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-12 col-xl-9">
+
+
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+
+                            <!-- Header -->
+                            <div class="mb-3">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+
+                                        <img src="{% static 'img/icon.png' %}" alt="..."
+                                             class="avatar">
+
+
+                                    </div>
+                                    <div class="col ms-n2">
+
+                                        <!-- Title -->
+                                        <h1 class="mb-1">
+                                            Первое классное задание
+                                        </h1>
+
+                                        <!-- Time -->
+                                        <p class="card-text small text-muted">
+                                            <span class="fe fe-clock"></span>
+                                            <time datetime="2018-05-24">Вы приступили к заданию в 21:17</time>
+                                        </p>
+
+                                    </div>
+                                    <div class="col-auto">
+
+
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+
+                            <!-- Текст -->
+                            <hr>
+                            {{ content_task.content|safe }}
+                            <hr>
+
+                            <!-- Ответ -->
+
+                            <br>
+                            <br>
+                            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="Отправить" name="answer_edit">
+                            </form>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-12 col-xl-3">
+
+                    <!-- Прогресс -->
+                    <div class="card">
+                        <div class="card-header">
+
+                            <!-- Заголово -->
+                            <h4 class="card-header-title" align="center">
+                                Уже пройдено:
+                            </h4>
+
+                            {#                            <!-- Ссылка справа, не знаю оставлять ли, слишком большое -->#}
+                            {#                            <a href="project-overview.html" class="small">вернуться<br>к заданиям</a>#}
+
+                        </div>
+                        <div class="card-body">
+
+                            <!-- Пройденные задания в правом блоке -->
+                            <div class="list-group list-group-flush my-n3">
+                                {% for i in progress_bar %}
+
+                                    <div class="list-group-item">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+
+                                                <!-- Avatar -->
+                                                <a href="project-overview.html" class="avatar avatar-4by3">
+                                                    <img src="{% static 'img/icon.png' %}" alt="..."
+                                                         class="avatar-img rounded">
+                                                </a>
+
+                                            </div>
+                                            <div class="col ms-n2">
+
+                                                <!-- Title -->
+                                                <h4 class="mb-1">
+                                                    <a href="project-overview.html">{{ i.title }}</a>
+                                                </h4>
+
+                                                <!-- Time -->
+                                                <p class="card-text small text-muted">
+                                                    <time datetime="2018-05-24">22.05.19</time>
+                                                </p>
+
+                                            </div>
+
+                                        </div> <!-- / .row -->
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div> <!-- / .card-body -->
+                    </div> <!-- / .card -->
+
+                </div>
+
+            </div> <!-- / .row -->
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js-script %}
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+{% endblock js-script %}

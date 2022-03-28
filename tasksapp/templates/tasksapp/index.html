@@ -1,0 +1,119 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% include 'tasksapp/include/inc_menu_tasks.html' %}
+        </div>
+        <div class="row my-4">
+            {% for i in lasts_done_tasks %}
+
+                <div class="col-lg-4 col-md-6">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <!-- Avatar -->
+                            <a href="" class="card-avatar avatar avatar-lg mx-auto">
+                                <img src="{% static 'img/task_icon.png' %}" alt=""
+                                     class="avatar-img rounded">
+                            </a>
+                            <!-- Title -->
+                            <h2 class="card-title">
+                                <a href="{% url 'tasks:task' i.pk %}">{{ i.title|capfirst }}</a>
+                            </h2>
+                            <!-- Text -->
+                            <p class="card-text text-muted">
+                                {{ i.description }}
+                            </p>
+                        </div>
+                        <div class="card-footer card-footer-boxed">
+                            <div class="row align-items-center">
+                                <!-- Button -->
+                                <div class="col">
+
+                                    <!-- Time -->
+                                    <p class="card-text text-muted mb-3">
+                                        <i class="fe fe-check-circle"></i> Завершено
+                                    </p>
+                                </div>
+                                <a href="{% url 'tasks:task' i.pk %}"
+                                   class="btn btn-primary d-block d-md-inline-block lift">
+                                    Посмотреть ответ
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+            {% for i in tasks_without_answer %}
+
+                <div class="col-lg-4 col-md-6">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body text-center">
+
+                            <!-- Avatar -->
+                            <a href="" class="card-avatar avatar avatar-lg mx-auto">
+                                <img src="{% static 'img/task_icon.png' %}" alt=""
+                                     class="avatar-img rounded">
+                            </a>
+
+                            <!-- Title -->
+                            <h2 class="card-title">
+                                <a href="{% url 'tasks:task' i.pk %}">{{ i.title|capfirst }}</a>
+                            </h2>
+
+                            <!-- Text -->
+                            <p class="card-text text-muted">
+                                {{ i.description }}
+                            </p>
+
+                        </div>
+                        <div class="card-footer card-footer-boxed">
+                            <div class="row align-items-center">
+
+
+                                <!-- Button -->
+                                <div class="col">
+
+                                    <!-- Time -->
+                                    <p class="card-text text-muted mb-3">
+                                        <i class="fe fe-clock"></i>
+                                        Ещё не пройдено
+                                    </p>
+
+                                </div>
+
+                                {% if i.id <= last_answer_user.task_id.id|add:'1' or i.id == 1 %}
+                                    <a href="{% url 'tasks:task' i.pk %}"
+                                       class="btn btn-primary d-block d-md-inline-block lift">
+                                        Приступить к заданию
+                                    </a>
+                                {% else %}
+                                    <a href="" class="btn btn-secondary disabled">
+                                        Станет открытым после прохождения прошлого
+                                    </a>
+                                {% endif %}
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            {% endfor %}
+
+            <hr>
+
+        </div>
+    </div>
+    </div>
+{% endblock content %}

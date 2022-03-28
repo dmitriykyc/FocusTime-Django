@@ -1,0 +1,199 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-body my-4 mx-4">
+                <div class="row mb-4">
+                    {# void(0) - при удалении строки, js не скролит страницу вверх#}
+                    <a href="javascript:void(0);" class="btn btn-info mb-3 click-open-form" onclick="openForm()">
+                        Добавить цель </a>
+                    <form method="post" class="form-to-wish" style="display: none">
+                        {% csrf_token %}
+                        {{ form.title }}
+                        <div class="text-muted my-2 text-center">
+                            <input class="btn btn-lg w-50 btn-info mb-3" type="submit"
+                                   value="Сохранить"
+                                   name="add_wish_bd">
+                        </div>
+
+                    </form>
+
+                    <hr>
+                </div>
+                <div class="row">
+                    {% for wish in wish_list %}
+
+                        <div class="col-12" id="block{{ wish.id }}">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input done-wish" type="checkbox"
+                                       id="flexSwitchCheckDefault" name="{{ wish.id }}" {% if wish.is_done %}
+                                       checked {% endif %}>
+
+                                <div class="alert alert-{% if wish.is_done %}info{% else %}light{% endif %}"
+                                     id="box{{ wish.id }}">
+
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <p id="edit_wish_hide{{ wish.id }}" class="mb-0"
+                                               style="font-size:20px">{{ wish.title }}</p>
+
+                                            <p class="mb-0" id="date_done_wish_{{ wish.id }}">
+                                                {% if wish.is_done %}
+                                                    Выполнено: {{ wish.date_update|date }}
+                                                {% endif %}
+                                            </p>
+                                        </div>
+
+                                        <div class="col-1">
+                                            <!-- Dropdown -->
+                                            <div class="dropdown text-end">
+                                                <a href="javascript:void(0);" class="dropdown-ellipses dropdown-toggle"
+                                                   role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                   aria-expanded="false">
+                                                    <i class="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+
+                                                    <a href="javascript:void(0);" class="dropdown-item"
+                                                       onclick="editWish({{ wish.id }})">
+                                                        Изменить
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="dropdown-item delete_wish"
+                                                       id="{{ wish.id }}">
+                                                        Удалить
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block js-script %}
+    <script>
+        function openForm() {
+            let button_click_open_form = $('.click-open-form')
+            let form_to_wish = $('.form-to-wish')
+            if (form_to_wish.is(':visible')) {
+                button_click_open_form.toggleClass('btn-light btn-info')
+                button_click_open_form.html('Добавить цель')
+                form_to_wish.hide()
+            } else {
+                button_click_open_form.toggleClass('btn-light btn-info')
+                button_click_open_form.html('Свернуть')
+                form_to_wish.show()
+            }
+        }
+
+        $('.done-wish').on('click', function () {
+
+            let wish_id = $(this).attr('name')
+            let data = {wish_id: wish_id}
+            $.ajax({
+                type: 'GET',
+                url: '{% url "wishlist:wish_done" %}',
+                data: data,
+                success: function () {
+                    console.log('wwww')
+                    let box_color = $('div[id=box' + wish_id + ']')
+                    let date_done_wish = $('p[id=date_done_wish_' + wish_id + ']')
+                    if (box_color.hasClass('alert-info')) {
+                        box_color.attr("class", "alert alert-light")
+                        date_done_wish.hide()
+                    } else {
+                        box_color.attr("class", "alert alert-info")
+                        console.log()
+                        date_done_wish.show()
+                        let dt = new Date()
+                        let now_date = dt.getDay() + ' ' + dt.getMonth() + ' ' + dt.getFullYear()
+                        date_done_wish.html('<p class="mb-0">Выполнено!</p>')
+                    }
+
+                }
+
+            })
+        })
+
+        $('.delete_wish').on('click', function () {
+
+            let wish_id_del = $(this).attr('id')
+            let data = {wish_id: wish_id_del}
+            $.ajax({
+                type: 'GET',
+                url: '{% url "wishlistapp:wish_delete" %}',
+                data: data,
+                success: function () {
+                    let wish_id = $('div[id=block' + wish_id_del + ']')
+                    wish_id.hide()
+                }
+            })
+        })
+
+
+        function editWish(wish_id) {
+            let edit_wish_hide = $('p[id=edit_wish_hide' + wish_id + ']')
+            let text_wish = edit_wish_hide[0].textContent
+            edit_wish_hide.before(
+                '<div id="new_form_edit' + wish_id + '">' +
+                '<textarea id="new_wish_text' + wish_id + '" name="title" cols="40" rows="3" class="form-control"' +
+                ' placeholder="" required="" id="id_title">' + text_wish + '</textarea>' +
+                '<div class="text-muted my-2 text-center">' +
+                '<input class="btn btn-sm w-50 btn-outline-primary" style="background-color: white"' +
+                ' type="submit" onclick="editWishSave(' + wish_id + ', 2)" ' +
+                'value="Сохранить"' +
+                'name="edit_wish">' +
+                '</div>' +
+                '</div> '
+            )
+            edit_wish_hide.hide()
+
+        }
+
+
+        {#type-request - чтобы понять какую форму чейчас сохранить, новый виш или редактировать старый#}
+
+        function editWishSave(wish_id, type_request) {
+            {#let cookie = document.cookie#}
+            {#let csrfToken = cookie.substring(cookie.indexOf('=') + 1)#}
+            let text = $('#new_wish_text' + wish_id).serializeArray()
+            let data = {
+                wish_id: wish_id,
+                text: text[0]['value'],
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                num_form: type_request
+            }
+            $.ajax({
+                type: 'POST',
+                url: '{% url "wishlistapp:wish_edit" %}',
+                data: data,
+                success: function () {
+                    console.log()
+                    $('p[id=edit_wish_hide' + wish_id + ']').show()
+                    $('p[id=edit_wish_hide' + wish_id + ']').html(text[0]['value'])
+                    $('#new_form_edit' + wish_id).hide()
+                }
+            })
+
+
+        }
+
+
+    </script>
+
+{% endblock %}

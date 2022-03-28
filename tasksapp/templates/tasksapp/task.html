@@ -1,0 +1,201 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12 col-xl-9">
+                <!-- Card -->
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Header -->
+                        <div class="mb-3">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+
+                                    <!-- Avatar -->
+
+                                    <img src="{% static 'img/task_icon2.png' %}" alt="..."
+                                         class="avatar">
+
+
+                                </div>
+                                <div class="col ms-n2">
+
+                                    <!-- Title -->
+                                    <h1 class="mb-1">
+                                        {{ content_task.title }}
+                                    </h1>
+
+                                    <!-- Time -->
+                                    <p class="card-text small text-muted">
+                                        <span class="fe fe-clock"></span>
+                                        {% if form.date_update %}
+                                            <time datetime="2018-05-24">Задание выполнено {{ form.date_update|date:"d.m.y H:m" }}
+                                            <br> {{ content_task.description }}</time>
+                                        {% else %}
+                                            <time datetime="2018-05-24">Вы приступили к заданию {% now "d.m.y H:m " %}
+                                            <br> {{ content_task.description }}</time>
+                                        {% endif %}
+
+                                    </p>
+
+                                </div>
+                                <div class="col-auto">
+
+
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+
+                        <!-- Текст -->
+                        <hr>
+                        {{ content_task.content|safe }}
+                        <hr>
+
+                        <!-- Ответ -->
+                        {% if type_form == 1 %}
+                            <br>
+                            <div>
+                                <div class="card card-sm mb-0">
+                                    <div class="card-body">
+
+                                        <!-- Text -->
+                                        <div class="row">
+                                            <h2><u>Ваш ответ:</u></h2>
+                                        </div>
+                                        <div class="row text-center">
+
+                                            {% if form.media %}
+                                                <img src="{{ form.media.url }}" alt="..."
+                                                     class="" style="width: 200px">
+                                            {% endif %}
+                                        </div>
+                                        <p>
+                                            {{ form.answer|linebreaks }}
+                                        </p>
+
+                                        <!-- Footer -->
+                                        <div class="row align-items-center">
+                                            <div class="col">
+
+                                                <!-- Time -->
+                                                <p class="card-text small text-muted">
+                                                    <i class="fe fe-clock"></i> Создан: {{ form.date_update }}
+                                                </p>
+
+                                            </div>
+                                            <div class="col-auto">
+
+                                                <!-- Avatar group -->
+                                                <div class="avatar-group">
+                                                    <a href="{% url 'tasksapp:edit_answer' pk %}"
+                                                       class="btn btn-primary btn-sm"> Изменить</a>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- / .row -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div><br><br></div>
+
+                        {% else %}
+                            <br>
+                            <br>
+
+                            <form class="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.answer }} <br>
+
+                                <h3>Прикрепить фото к ответу:</h3>
+                                {{ form.media }}
+
+                                <br>
+                                <br>
+
+
+                                <input type="submit" class="btn btn-primary" value="Отправить" name="answer_sent">
+                            </form>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-12 col-xl-3">
+
+                <!-- Прогресс -->
+                <div class="card">
+                    <div class="card-header">
+
+                        <!-- Заголово -->
+                        <h4 class="card-header-title" align="center">
+                            Ранее пройдено:
+                        </h4>
+
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Пройденные задания в правом блоке -->
+                        <div class="list-group list-group-flush my-n3">
+                            {% for i in progress_bar %}
+
+                                <div class="list-group-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+
+                                            <!-- Avatar -->
+
+                                            <img class="avatar" src="{% static 'img/task_icon2.png' %}" alt="..."
+                                                 class="avatar-img rounded">
+
+
+                                        </div>
+                                        <div class="col ms-n2">
+
+                                            <!-- Title -->
+                                            <h4 class="mb-1">
+                                                <a href="{% url 'tasks:task' pk=i.id %}">{{ i.title }}</a>
+                                            </h4>
+
+                                            <!-- Time -->
+                                            <p class="card-text small text-muted">
+                                                <time datetime=""></time>
+                                                <a> {% for answ in i.answer.all %}
+                                                    {{ answ.date_create|date:'d M Y H:m' }}
+                                                {% endfor %}
+                                                </a>
+                                            </p>
+
+                                        </div>
+
+                                    </div> <!-- / .row -->
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div> <!-- / .card-body -->
+                </div> <!-- / .card -->
+
+            </div>
+
+        </div> <!-- / .row -->
+    </div>
+
+{% endblock %}
+
+{% block js-script %}
+    <script>
+        $('.ql-editor').on('click', function () {
+            var hhh = $('.ql-editor').html()
+            console.log(hhh)
+        })
+
+    </script>
+{% endblock %}

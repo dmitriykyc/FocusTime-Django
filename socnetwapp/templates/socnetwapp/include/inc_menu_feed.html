@@ -1,0 +1,43 @@
+<div class="container">
+
+    <div class="row align-items-center mx-4">
+
+        <div class="col mb-5 ms-md-n2">
+            <ul class="nav nav-tabs nav-overflow header-tabs">
+                <li class="nav-item">
+                    <a href="{% url 'socnetw:socnetwapp' %}"
+                       class="nav-link text-nowrap
+
+                               {% if request.resolver_match.url_name == 'socnetwapp' %}
+                                    active disabled
+                               {% endif %}">
+                        Все посты
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'socnetw:my_posts' %}" class="nav-link text-nowrap
+                               {% if request.resolver_match.url_name == 'my_posts' %}
+                                    active disabled
+                               {% endif %} ">
+                        Мои посты
+                        <span class="badge rounded-pill bg-secondary-soft">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-md-2 my-3">
+
+            <!-- Button -->
+            <a href="{% url 'socnetwapp:create_post' %}"
+               class="btn btn-primary d-block d-md-inline-block
+                    {% if request.resolver_match.url_name == "create_post" %} disabled {% endif %}">
+                Написать пост
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
