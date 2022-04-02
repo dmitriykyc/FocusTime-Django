@@ -7,7 +7,7 @@ from django.db import models
 class TimeFocusUsers(AbstractUser):
     avatar = models.ImageField('Аватар', blank=True, upload_to='avatars')
     b_date = models.DateField('Дата рождения', null=True)
-    user_info = models.TextField('Описание человека от его лица\статус', blank=True)
+    user_info = models.TextField('Описание человека от его лица', blank=True)
     instagram = models.URLField('Ccылка на инсту', blank=True)
     city = models.CharField('Город', max_length=100, blank=True)
     date_create = models.DateField('Дата создания профиля', auto_now_add=True)
