@@ -1,6 +1,6 @@
 # Focus Time
 
-Использовано: 
+Стек: 
 - Python==3.10
 - Django==3.2.11
 - Pillow==9.0.0
